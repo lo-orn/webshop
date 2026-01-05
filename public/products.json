@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Cyber Samurai X",
+      "image": "./images/cyber-samurai-x.png",
+      "description": "En futuristisk krigare utrustad med plasmavatten och cyberrustning.",
+      "price": 299,
+      "categories": ["sci-fi", "samuraj", "premium"]
+    },
+    {
+      "id": 2,
+      "name": "Galactic Bounty Hunter",
+      "image": "./images/galactic-bounty-hunter.png",
+      "description": "Prisjägaren från galaxens yttre kant med justerbar hjälm och energigevär.",
+      "price": 249,
+      "categories": ["rymd", "klassiker", "äventyr"]
+    },
+    {
+      "id": 3,
+      "name": "Jungle Defender Kora",
+      "image": "./images/jungle-defender-kora.png",
+      "description": "Modig hjälte från de djupa skogarna, redo att försvara naturen mot inkräktare.",
+      "price": 199,
+      "categories": ["hjälte", "natur", "äventyr"]
+    }
+  ]
+}
