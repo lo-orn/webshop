@@ -10,4 +10,6 @@ assignees: ''
 Som en _roll_ vill jag kunna _handling_ för att _resultat_.
 
 Tasks:
-- [ ]
+- [ ] Task 1
+- [ ] Task 2
+- [ ] Task 3
