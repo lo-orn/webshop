@@ -1,4 +1,4 @@
-import type { ProductResponse } from "../models/ProductResponse";
+import type { productResponse } from "../models/ProductResponse";
 
 /**
  *
@@ -7,6 +7,6 @@ import type { ProductResponse } from "../models/ProductResponse";
  */
 export const getData = async () => {
   const response = await fetch("/products.json");
-  const data: ProductResponse = await response.json();
+  const data: productResponse = await response.json();
   return data;
 };
