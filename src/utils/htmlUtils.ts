@@ -17,6 +17,7 @@ export const createAllProductCards = async () => {
 export const createProductCard = (product: Product) => {
   const container = document.createElement("div");
   const buyContainer = document.createElement("div");
+  const imgContainer = document.createElement("div");
   const img = document.createElement("img");
   const category = document.createElement("div");
   const name = document.createElement("h3");
@@ -31,20 +32,22 @@ export const createProductCard = (product: Product) => {
   price.innerHTML = product.price.toString() + "SEK";
   addButton.innerHTML = "ADD TO CART";
 
-  container.classList.add("productCardContainer");
+  container.classList.add("productCard");
+  imgContainer.classList.add("productImgContainer");
   img.classList.add("productCardImg");
   category.classList.add("productCardCategory");
   name.classList.add("productCardName");
   description.classList.add("productCardDescription");
   price.classList.add("productCardPrice");
-
   addButton.classList.add("productCardButton");
   buyContainer.classList.add("buyContainer");
 
   buyContainer.appendChild(price);
   buyContainer.appendChild(addButton);
 
-  container.appendChild(img);
+  imgContainer.appendChild(img);
+
+  container.appendChild(imgContainer);
   container.appendChild(category);
   container.appendChild(name);
   container.appendChild(description);
@@ -52,5 +55,5 @@ export const createProductCard = (product: Product) => {
 
   //change this to proper container in index.html
   // and/or adjust so this function can be reused on different places
-  document.getElementById("app")?.appendChild(container);
+  document.getElementById("product-card-container")?.appendChild(container);
 };
