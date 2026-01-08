@@ -1,3 +1,5 @@
+
+import type { Product } from "../models/Product";
 import { getProductsById } from "../services/productService";
 
 export const createCart = () => {
@@ -35,5 +37,41 @@ export const addItemToCart = async (id: string) => {
   }
 };
 
+
+
+
+
+export const removeItemFromCart = (id: string) => {
+  let cartString = localStorage.getItem("cart");
+  if (cartString) {
+    const cartArray = JSON.parse(cartString);
+    console.log("old cart:", cartArray);
+
+    const newCartArray = cartArray.filter(
+      (product: Product) => product.id !== parseFloat(id)
+    );
+    console.log("new cart:", newCartArray);
+
+    localStorage.setItem("cart", JSON.stringify(newCartArray));
+  } else {
+    console.log("No cart was found :(");
+  }
+};
+
+// new remove Function
+export const removeOneItemFromCart = (id: string) => { 
+      const cartString = localStorage.getItem("cart"); 
+      if(!cartString) return; 
+      const cartArray = JSON.parse(cartString) as Product[]; 
+      const numericID = Number(id); 
+      const index = cartArray.findIndex((product) => product.id === numericID ); 
+      if(index === -1) return; 
+      cartArray.splice(index, 1) 
+      console.log("cart after:", cartArray);
+  localStorage.setItem("cart", JSON.stringify(cartArray)) }
+
+
+
 findCart();
 addItemToCart("1");
+removeOneItemFromCart("1");
