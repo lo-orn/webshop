@@ -1,6 +1,8 @@
 import type { Product } from "../../models/Product";
+import { addItemToCart, findCart, removeOneItemFromCart } from "../../utils/cartUtils";
 import { getLastClickedProduct } from "../../utils/pageUtil"
 
+console.log("PDP FILE LOADED");
 
 //render product function with html *done*
 
@@ -32,11 +34,16 @@ export const initPdp = () => {
 
     // hämta produkt från localStorage
     const product = getLastClickedProduct();
-    if(!product) return;
-    console.log(product);
+    console.log("product from LS:", product);
+    if(!product){
+    console.log("STOP: no product in localStorage");
+return;
+    };
     
     renderProduct(product);
     initTabs(product);
+    console.log("calling initQty");
+    initQty(product)
 
 }
 
@@ -80,6 +87,65 @@ export const initTabs = (product: Product) => {
 
 
 //initQty 
+
+const initQty = (product: Product) => {
+    
+     
+    const getQtyInCart = (productId: number) => {
+
+        const cartString = localStorage.getItem("cart")
+        if(!cartString) return 0
+        const cartArray = JSON.parse(cartString) as Product[];
+    return cartArray.filter((p) => p.id === productId).length
+    }
+    
+    findCart();
+    
+    const qtyEl = document.getElementById("qty-value") as HTMLSpanElement | null;
+    const minusBtn = document.getElementById("qty-minus") as HTMLButtonElement | null;
+    const plusBtn = document.getElementById("qty-plus") as HTMLButtonElement | null;
+    const addBtn = document.getElementById("add-to-cart") as HTMLButtonElement | null;
+
+    
+    const createQty = () => {
+        if(!qtyEl) return;
+        qtyEl.textContent = String(getQtyInCart(product.id))
+    };
+    
+    createQty();
+
+    
+
+    if(plusBtn){
+        plusBtn.addEventListener("click", async() => {
+            console.log("Product added")
+            await addItemToCart(String(product.id))
+            createQty();
+            
+        });
+    };
+   
+    if(minusBtn) {
+        minusBtn.addEventListener("click", () => {
+            console.log("Product removed")
+            removeOneItemFromCart(String(product.id))
+            createQty();
+            
+        });
+    }
+   
+        if(addBtn) {
+            addBtn.addEventListener("click", async() => {
+                await addItemToCart(String(product.id));
+                createQty();
+                console.log("Product added")
+            })
+        }
+        console.log("qty elements:", { qtyEl, minusBtn, plusBtn, addBtn });
+
+}
+
+
 
 //initAddToCart(product)
 
