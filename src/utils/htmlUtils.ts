@@ -1,4 +1,4 @@
-import type { Product } from "../models/Product";
+import type { Product } from "../models/product";
 import { getData } from "../services/serviceBase";
 import { setLastClickedProduct } from "./pageUtils";
 
@@ -6,7 +6,7 @@ export const createAllProductCards = async () => {
   const productResponse = await getData();
   const products = productResponse.products;
 
-  products.forEach((product) => {
+  products.forEach((product: Product) => {
     createProductCard(product);
   });
 };
