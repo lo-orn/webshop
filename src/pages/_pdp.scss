@@ -10,7 +10,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
-    align-items: start;
 }
 
 .pdp__media {
@@ -37,9 +36,17 @@
 .pdp__info {
     display: flex;
     flex-direction: column;
+    height: 100%;
     gap: 10px;
 
 }
+
+.pdp__buy {
+    margin-top: auto; 
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+  }
 
 #pdp-title {
     margin: 0;
