@@ -13,8 +13,3 @@ import { findCart } from "./utils/cartUtils";
 createAllProductCards();
 findCart();
 
-// Kör PDP-kod bara på pdp-sidan
-if (window.location.pathname.includes("pdp")) {
-  console.log("CALLING initPdp");
-  initPdp();
-}

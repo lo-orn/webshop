@@ -61,12 +61,12 @@ export const createProductCard = (product: Product) => {
 
   imgContainer.addEventListener("click", () => {
     setLastClickedProduct(product);
-    window.location.href = "test.html"; // change this to pdp.html
+    window.location.href = "pdp.html"; 
   });
 
   name.addEventListener("click", () => {
     setLastClickedProduct(product);
-    window.location.href = "test.html"; // change this to pdp.html
+    window.location.href = "pdp.html"; 
   });
 
   document.getElementById("product-card-container")?.appendChild(container);
