@@ -1,9 +1,13 @@
 import type { Product } from "../../models/product"; 
 import { addItemToCart, findCart, removeOneItemFromCart } from "../../utils/cartUtils";
 import { getLastClickedProduct } from "../../utils/pageUtils";
+import "../../scss/pdp.scss"
 
 console.log("PDP FILE LOADED");
+// Kör PDP-kod bara på pdp-sidan
 
+    
+  
 //render product function with html *done*
 
 export const renderProduct = (product: Product) => {
@@ -146,6 +150,8 @@ const initQty = (product: Product) => {
         console.log("qty elements:", { qtyEl, minusBtn, plusBtn, addBtn });
 
 }
+
+initPdp();
 
 
 

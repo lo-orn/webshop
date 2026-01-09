@@ -45,7 +45,7 @@ export const addItemToCart = async (id: string) => {
  * filter out every product that doesnt match the id param
  * add that new cart to localStorage
  */
-export const removeItemFromCart = (id: string) => {
+export const removeProductFromCart = (id: string) => {
   let cartString = localStorage.getItem("cart");
   if (cartString) {
     const cartArray = JSON.parse(cartString);
