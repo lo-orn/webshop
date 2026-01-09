@@ -92,16 +92,16 @@ export const initTabs = (product: Product) => {
 
 //initQty 
 
-const initQty = (product: Product) => {
-    
-     
-    const getQtyInCart = (productId: number) => {
+const getQtyInCart = (productId: number) => {
 
-        const cartString = localStorage.getItem("cart")
-        if(!cartString) return 0
-        const cartArray = JSON.parse(cartString) as Product[];
+    const cartString = localStorage.getItem("cart")
+    if(!cartString) return 0
+    const cartArray = JSON.parse(cartString) as Product[];
     return cartArray.filter((p) => p.id === productId).length
-    }
+}
+
+const initQty = (product: Product) => {
+
     
     findCart();
     
