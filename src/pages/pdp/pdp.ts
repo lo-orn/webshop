@@ -101,8 +101,6 @@ const getQtyInCart = (productId: number) => {
 }
 
 const initQty = (product: Product) => {
-
-    
     findCart();
     
     const qtyEl = document.getElementById("qty-value") as HTMLSpanElement | null;
@@ -117,8 +115,6 @@ const initQty = (product: Product) => {
     };
     
     createQty();
-
-    
 
     if(plusBtn){
         plusBtn.addEventListener("click", async() => {
