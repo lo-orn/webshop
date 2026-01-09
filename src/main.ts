@@ -1,4 +1,5 @@
 import "./scss/style.scss";
+import "./scss/pdp.scss"
 import "./services/productService";
 import "./utils/cartUtils";
 import { initPdp } from "./pages/pdp/pdp";

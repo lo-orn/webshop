@@ -1,6 +1,6 @@
-import type { Product } from "../../models/Product";
+import type { Product } from "../../models/product"; 
 import { addItemToCart, findCart, removeOneItemFromCart } from "../../utils/cartUtils";
-import { getLastClickedProduct } from "../../utils/pageUtil"
+import { getLastClickedProduct } from "../../utils/pageUtils";
 
 console.log("PDP FILE LOADED");
 

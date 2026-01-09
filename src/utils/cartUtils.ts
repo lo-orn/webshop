@@ -61,3 +61,19 @@ export const removeItemFromCart = (id: string) => {
     console.log("No cart was found :(");
   }
 };
+
+//remove one item 
+
+export const removeOneItemFromCart = (id: string) => { 
+  const cartString = localStorage.getItem("cart"); 
+  if(!cartString) return; 
+  const cartArray = JSON.parse(cartString) as Product[]; 
+  console.log("old cart:", cartArray);
+  const numericID = Number(id); 
+  const index = cartArray.findIndex((product) => product.id === numericID ); 
+  if(index === -1) return; 
+  cartArray.splice(index, 1) 
+  console.log("cart after:", cartArray);
+localStorage.setItem("cart", JSON.stringify(cartArray)) 
+};
+
