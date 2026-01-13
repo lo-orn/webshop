@@ -1,8 +1,13 @@
-import "./style.scss";
-import { router } from "./router";
+import "./scss/style.scss";
+import "./scss/pdp.scss";
+import "./services/productService";
+import "./utils/cartUtils";
+import { initPdp } from "./pages/pdp/pdp";
 
-const app = document.querySelector<HTMLDivElement>("#app");
-if (!app) throw new Error("Hittar inte #app");
+import "./utils/htmlUtils";
+import "./utils/pageUtils";
+import { createAllProductCards } from "./utils/htmlUtils";
+import { findCart } from "./utils/cartUtils";
 
-window.addEventListener("hashchange", () => router(app));
-router(app);
+createAllProductCards();
+findCart();
