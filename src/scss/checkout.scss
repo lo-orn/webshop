@@ -22,6 +22,14 @@ main {
   }
 }
 
+#shippingInfoForm,
+#shippingMethodForm,
+#paymentInfoForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .checkout-card {
   border: 2px solid black;
   padding: 30px;
