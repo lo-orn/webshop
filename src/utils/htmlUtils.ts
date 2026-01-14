@@ -3,8 +3,10 @@ import type { CartItem } from "../models/CartItem";
 import type { Product } from "../models/product";
 import { getData } from "../services/serviceBase";
 import { addItemToCart, removeOneItemFromCart } from "./cartUtils";
+import { checkShipping } from "./checkoutUtils";
 import { setLastClickedProduct } from "./pageUtils";
 
+/* ---LANDING PAGE---- */
 export const createAllProductCards = async () => {
   const productResponse = await getData();
   const products = productResponse.products;
@@ -82,6 +84,8 @@ export const createProductCard = (product: Product) => {
   document.getElementById("product-card-container")?.appendChild(container);
 };
 
+/* ---CHECKOUT PAGE---- */
+
 export const createCheckoutCart = () => {
   const cartString = localStorage.getItem("cart");
   if (!cartString) return;
@@ -111,12 +115,12 @@ export const createCheckoutCart = () => {
 
   const subTotalEl = document.getElementById("subtotalPrice");
   if (subTotalEl) {
-    subTotalEl.innerText = subTotal.toString();
+    subTotalEl.innerText = "$" + subTotal.toString();
   }
 
   const shippingPriceEl = document.getElementById("shippingPrice");
   if (shippingPriceEl) {
-    shippingPriceEl.innerText = cart.shippingPrice?.toString();
+    shippingPriceEl.innerText = "$" + cart.shippingPrice?.toString();
   }
 
   const totalPriceEl = document.getElementById("totalPrice");
@@ -125,22 +129,6 @@ export const createCheckoutCart = () => {
   }
 };
 
-export const checkShipping = () => {
-  const shippingButtons = document.querySelectorAll<HTMLInputElement>(
-    "[name=shippingMethod]"
-  );
-  let shippingMethod: string = "";
-  if (shippingButtons) {
-    shippingButtons.forEach((btn) => {
-      if (btn.checked) {
-        shippingMethod = btn.value;
-      }
-    });
-  }
-  return shippingMethod;
-};
-
-//call this in a loop of all cartItems in cart
 export const createCheckoutCartItem = (item: CartItem) => {
   const product = item.product;
 

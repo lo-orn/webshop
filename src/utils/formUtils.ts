@@ -1,8 +1,7 @@
-const shippingInfoForm = document.getElementById(
-  "shippingInfoForm"
-) as HTMLFormElement;
+// --- CHECKOUT PAGE ---
+const checkoutForm = document.getElementById("checkoutForm") as HTMLFormElement;
 
-const handleShpInfoForm = (e: Event) => {
+const handleCheckoutForm = (e: Event) => {
   e.preventDefault();
 
   const approvedName = /^[A-Za-z-]+$/;
@@ -47,9 +46,9 @@ const handleShpInfoForm = (e: Event) => {
     console.log("Please enter a street address");
   }
 
-  const additionalData = (
-    document.getElementById("additional") as HTMLInputElement
-  ).value;
+  // const additionalData = (
+  //   document.getElementById("additional") as HTMLInputElement
+  // ).value;
 
   const cityData = (document.getElementById("city") as HTMLInputElement).value;
 
@@ -77,8 +76,41 @@ const handleShpInfoForm = (e: Event) => {
   if (countryData.trim() === "") {
     console.log("Please enter a country");
   }
+
+  const cardNumberData = (
+    document.getElementById("cardNumber") as HTMLInputElement
+  ).value;
+
+  if (cardNumberData.trim() === "" || !approvedNumber.test(cardNumberData)) {
+    console.log("Please enter a valid card number");
+  }
+
+  const cardHolderData = (
+    document.getElementById("cardHolder") as HTMLInputElement
+  ).value;
+
+  if (cardHolderData.trim() === "" || !approvedName.test(cardHolderData)) {
+    console.log("Please enter a valid card holder name");
+  }
+
+  const expDateData = (
+    document.getElementById("expiryDate") as HTMLInputElement
+  ).value;
+
+  if (expDateData.trim() === "") {
+    // add regex validation
+    console.log("Please enter the date in format 'MM/YY'");
+  }
+
+  const cvvData = (document.getElementById("cvvCode") as HTMLInputElement)
+    .value;
+
+  if (cvvData.trim() === "") {
+    // add regex validation
+    console.log("Please enter three digits");
+  }
 };
 
-if (shippingInfoForm) {
-  shippingInfoForm.addEventListener("submit", handleShpInfoForm);
+if (checkoutForm) {
+  checkoutForm.addEventListener("submit", handleCheckoutForm);
 }

@@ -1,25 +1,6 @@
 import "../../scss/checkout.scss";
+import "../../utils/checkoutUtils";
 import "../../utils/formUtils";
 import { createCheckoutCart } from "../../utils/htmlUtils";
-
-const shippingButtons = document.getElementsByName("shippingMethod");
-
-shippingButtons?.forEach((btn) => {
-  btn.addEventListener("change", () => {
-    checkChosen();
-    createCheckoutCart();
-  });
-});
-
-const checkChosen = () => {
-  shippingButtons.forEach((btn) => {
-    let parent = btn.parentElement;
-    if ((btn as HTMLInputElement).checked) {
-      parent?.classList.add("chosen");
-    } else {
-      parent?.classList.remove("chosen");
-    }
-  });
-};
 
 createCheckoutCart();

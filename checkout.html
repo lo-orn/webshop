@@ -96,7 +96,6 @@
                 <label for="country">COUNTRY</label>
                 <input type="text" id="country" placeholder="United States" />
               </div>
-              <button>Complete order</button>
             </div>
           </section>
 
@@ -104,14 +103,19 @@
             <h3>SHIPPING METHOD</h3>
             <form id="shippingMethodForm">
               <div class="btn" id="standardShpBtn">
-                <input type="radio" name="shippingMethod" />
+                <input type="radio" name="shippingMethod" value="standard" />
                 <div class="btnText">
                   <p class="btnHeading">STANDARD SHIPPING</p>
                   <p class="btnInfo">5-7 BUSINESS DAYS</p>
                 </div>
               </div>
               <div class="btn chosen" id="expressShpBtn">
-                <input type="radio" name="shippingMethod" checked />
+                <input
+                  type="radio"
+                  name="shippingMethod"
+                  checked
+                  value="express"
+                />
                 <div class="btnText">
                   <p class="btnHeading">EXPRESS SHIPPING</p>
                   <p class="btnInfo">2-3 BUSINESS DAYS</p>
@@ -176,16 +180,14 @@
               <p>SHIPPING</p>
               <span id="shippingPrice"></span>
             </div>
-            <div class="row">
-              <p>TAX (8%)</p>
-              <span id="taxPrice"></span>
-            </div>
           </div>
           <div class="pricePart" id="priceBottom">
             <span>TOTAL</span>
-            <span>$ <span id="totalPrice"></span></span>
+            <span>$<span id="totalPrice"></span></span>
           </div>
-          <button id="orderBtn">COMPLETE ORDER</button>
+          <button type="submit" form="checkoutForm" id="orderBtn">
+            COMPLETE ORDER
+          </button>
         </section>
       </section>
     </main>
