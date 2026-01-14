@@ -30,8 +30,6 @@ export const findCart = () => {
  * else, log error message
  */
 export const addItemToCart = async (id: string) => {
-  console.log("adding item to cart");
-
   const product = await getProductsById(id);
   if (!product) return;
 
@@ -40,7 +38,6 @@ export const addItemToCart = async (id: string) => {
 
   if (cartString) {
     cart = JSON.parse(cartString);
-    console.log("this is cart after parse", cart);
   } else
     cart = {
       items: [],
@@ -69,8 +66,6 @@ export const addItemToCart = async (id: string) => {
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
-
-  console.log("this is cart:", localStorage.getItem("cart"));
 };
 
 /**
@@ -81,21 +76,12 @@ export const addItemToCart = async (id: string) => {
  * filter out every product that doesnt match the id param
  * add that new cart to localStorage
  */
-export const removeProductFromCart = (id: string) => {
-  let cartString = localStorage.getItem("cart");
-  if (cartString) {
-    const cartArray = JSON.parse(cartString);
-    console.log("old cart:", cartArray);
+export const removeProductFromCart = (id: string, cart: Cart) => {
+  const newCart = cart.items.filter(
+    (item: CartItem) => item.product.id !== parseFloat(id)
+  );
 
-    const newCartArray = cartArray.filter(
-      (product: Product) => product.id !== parseFloat(id)
-    );
-    console.log("new cart:", newCartArray);
-
-    localStorage.setItem("cart", JSON.stringify(newCartArray));
-  } else {
-    console.log("No cart was found :(");
-  }
+  localStorage.setItem("cart", JSON.stringify(newCart));
 };
 
 //remove one item
@@ -103,12 +89,18 @@ export const removeProductFromCart = (id: string) => {
 export const removeOneItemFromCart = (id: string) => {
   const cartString = localStorage.getItem("cart");
   if (!cartString) return;
-  const cartArray = JSON.parse(cartString) as Product[];
-  console.log("old cart:", cartArray);
-  const numericID = Number(id);
-  const index = cartArray.findIndex((product) => product.id === numericID);
-  if (index === -1) return;
-  cartArray.splice(index, 1);
-  console.log("cart after:", cartArray);
-  localStorage.setItem("cart", JSON.stringify(cartArray));
+
+  const cart: Cart = JSON.parse(cartString);
+
+  cart.items.forEach((item: CartItem, index) => {
+    if (item.product.id === parseFloat(id)) {
+      item.amount -= 1;
+
+      item.amount < 1 ? cart.items.splice(index, 1) : null;
+    } else {
+      console.log("couldn't find the product in the cart :(");
+    }
+  });
+
+  localStorage.setItem("cart", JSON.stringify(cart));
 };
