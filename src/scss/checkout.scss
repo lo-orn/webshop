@@ -77,8 +77,13 @@ form {
   }
   #priceTop {
     display: flex;
-    img {
-      width: 6rem;
+    flex-direction: column;
+
+    .priceRow {
+      display: flex;
+      img {
+        width: 6rem;
+      }
     }
   }
 

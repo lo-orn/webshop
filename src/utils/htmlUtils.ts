@@ -1,3 +1,5 @@
+import type { Cart } from "../models/Cart";
+import type { CartItem } from "../models/CartItem";
 import type { Product } from "../models/product";
 import { getData } from "../services/serviceBase";
 import { addItemToCart, removeOneItemFromCart } from "./cartUtils";
@@ -78,4 +80,51 @@ export const createProductCard = (product: Product) => {
   });
 
   document.getElementById("product-card-container")?.appendChild(container);
+};
+
+export const createCheckoutCart = () => {
+  const cartString = localStorage.getItem("cart");
+  if (!cartString) return;
+
+  const cart: Cart = JSON.parse(cartString);
+
+  cart.items.forEach((item) => {
+    createCheckoutCartItem(item);
+  });
+};
+
+//call this in a loop of all cartItems in cart
+export const createCheckoutCartItem = (item: CartItem) => {
+  const product = item.product;
+
+  const row = document.createElement("div");
+  row.classList.add("priceRow");
+
+  const imgContainer = document.createElement("div");
+  imgContainer.classList.add("imgContainer");
+
+  const img = document.createElement("img");
+  img.src = product.image;
+  img.alt = product.name;
+  imgContainer?.appendChild(img);
+
+  const textContainer = document.createElement("div");
+  textContainer.classList.add("textContainer");
+  const name = document.createElement("p");
+  const qty = document.createElement("p");
+  const price = document.createElement("p");
+
+  name.innerText = product.name;
+  qty.innerText = "QTY: " + item.amount.toString();
+  price.innerHTML = "$" + (product.price * item.amount).toString();
+
+  textContainer?.appendChild(name);
+  textContainer?.appendChild(qty);
+  textContainer?.appendChild(price);
+
+  row.appendChild(imgContainer);
+  row.appendChild(textContainer);
+
+  const container = document.getElementById("priceTop");
+  container?.appendChild(row);
 };

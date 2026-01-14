@@ -1,4 +1,5 @@
 import "../../scss/checkout.scss";
+import { createCheckoutCart } from "../../utils/htmlUtils";
 
 const shippingButtons = document.getElementsByName("shippingMethod");
 
@@ -18,3 +19,5 @@ const checkChosen = () => {
     }
   });
 };
+
+createCheckoutCart();

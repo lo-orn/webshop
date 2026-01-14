@@ -1,6 +1,5 @@
 import type { Cart } from "../models/Cart";
 import type { CartItem } from "../models/CartItem";
-import type { Product } from "../models/product";
 import { getProductsById } from "../services/productService";
 
 export const createCart = () => {
