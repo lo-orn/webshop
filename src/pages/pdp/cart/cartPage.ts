@@ -37,5 +37,65 @@ function createEmptyCartView(): HTMLElement {
 
 // Filled cart view
 function createFilledCartView(): HTMLElement {
-    
+    const cartContainer = document.createElement("div");
+    cartContainer.className = "cart-container";
+
+    const img = document.createElement("img");
+    img.className = "cart-container__img";
+
+    const productName = document.createElement("p");
+    productName.className = "cart-container__p";
+    productName.textContent = "SOPHIE - ANGELIC SOUND ENGINEER";
+
+    const productPrice = document.createElement("p");
+    productPrice.className = "cart-container__price";
+
+    const button = document.createElement("button");
+    button.className = "qty-minus qty-plus";
+
+    const buttonRemove = document.createElement("button");
+    buttonRemove.className = "removeItems";
+
+    // Order summery section
+    const wrapperSummery = document.createElement("div");
+    wrapperSummery.className = "div-summery";
+
+    const headingSummery = document.createElement("p");
+    headingSummery.className = "div-summery__heading"
+    headingSummery.textContent = "ORDER SUMMARY"
+
+    const promoText = document.createElement("p");
+    promoText.className = "promoText";
+    promoText.textContent = "PROMO CODE";
+
+    const form = document.createElement("form");
+    form.className = "promoForm";
+
+    const input = document.createElement("input");
+    input.className = "promoInput";
+    input.textContent = "ENTER CODE";
+
+    const submitButton = document.createElement("button");
+    submitButton.className = "btn-submit";
+    submitButton.textContent = "SUBMIT";
+
+    const subTotal = document.createElement("p");
+    subTotal.className = "subTotal-text";
+    subTotal.textContent = "SUBTOTAL";
+
+    const shipping = document.createElement("p");
+    shipping.className = "shipping-text";
+    shipping.textContent = "SHIPPING";
+
+    const total = document.createElement("p");
+    total.className = "total-text";
+    total.textContent = "TOTAL";
+
+    const continueBtn = document.createElement("button");
+    continueBtn.className = "btn-continue";
+    continueBtn.textContent = "CONTINUE SHOPPING";
+
+    const checkoutBtn = document.createElement("button");
+    checkoutBtn.className = "btn-checkout";
+    checkoutBtn.textContent = "CHECKOUT";  
 }
