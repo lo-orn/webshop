@@ -4,64 +4,130 @@
 @use "./landingPage";
 
 main {
-  width: 100%;
-  display: flex;
+  max-width: 1200px;
+  width: calc(100% - 64px);
+  margin: 20px auto;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 320px;
+  align-items: start;
 
   .left {
-    flex-basis: 70%;
+    min-width: 0;
   }
 
   .right {
-    flex-grow: 2;
+   position: sticky; 
+   top: 20px;
   }
 }
 
-section {
-  border: 2px solid black;
-  padding: 3rem;
-  margin-bottom: 1rem;
+#shippingInfoForm,
+#shippingMethodForm,
+#paymentInfoForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
+
+.checkout-card {
+  border: 2px solid black;
+  padding: 30px;
+  background: white;
+  
+}
+
+.checkout-card + .checkout-card {
+  margin-top: 20px;
+}
+
+h3 {
+  margin: 0 0 20px;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-
-  .inlineContainer {
-    width: 100%;
-    display: flex;
-    gap: 1rem;
-
-    * {
-      flex-grow: 2;
-    }
-  }
+  gap: 20px;
 
   .formColumn {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 10px;
+
+    label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
 
     input {
-      line-height: 3rem;
+      height: 48px;
+      padding: 0 14px;
+      border: 1px solid black;
+      font-size: 14px;
     }
   }
 }
 
-.btn {
-  border: 1px solid black;
-  padding: 0.5rem;
+.inlineContainer {
   display: flex;
-  width: 20rem;
-  gap: 3rem;
+  gap: 20px;
+}
+
+.inlineContainer > .formColumn {
+  flex: 1;
+}
+
+
+.btn {
+  border: 2px solid black;
+  height: 56px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 320px;
+  max-width: 100%;
+  user-select: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .btnText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+  }
+
+  p {
+    margin: 0;
+    line-height: 1.1;
+  }
+
 
   .btnHeading {
-    font-size: 1.4rem;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .btnInfo {
+    font-size: 12px;
   }
 }
 
 // Payment Info Section
 
+#btnCreditCard {
+  background: black;
+  color: white;
+}
 #billingAddress {
   align-self: flex-start;
 }
@@ -69,7 +135,15 @@ form {
 // Price Count Section
 
 #priceCountSection {
-  padding: 0;
+  .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  
+  p {
+    margin: 0;
+  }
+}
 
   .pricePart {
     border-bottom: 2px solid black;
@@ -77,6 +151,7 @@ form {
   }
   #priceTop {
     display: flex;
+    border: 1px solid black;
     flex-direction: column;
 
     .priceRow {
@@ -88,13 +163,28 @@ form {
   }
 
   #priceBottom {
-    display: flex;
-    justify-content: space-between;
+    padding: 10px;
+    font-weight: 700;
+    font-size: 16px;
   }
 
   #orderBtn {
     width: 100%;
-    line-height: 2rem;
+    height: 40px;
+    margin-top: 10px;
+    line-height: normal;
+    border: 1px solid black;
+    background: white;
+    color: black;
+    font-weight: 600;
+
+
+    &:hover {
+      cursor: pointer;
+      border: 1px solid #002FA7;
+      background:#002FA7;
+      color: white
+    }
   }
 }
 
