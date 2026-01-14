@@ -30,7 +30,7 @@ export const createProductCard = (product: Product) => {
   const removeButton = document.createElement("button");
 
   img.src = product.image;
-  category.innerHTML = "placeholder";
+  category.innerHTML = product.category;
   name.innerHTML = product.name.toUpperCase();
   description.innerHTML = product.description;
   price.innerHTML = product.price.toString() + "SEK";
