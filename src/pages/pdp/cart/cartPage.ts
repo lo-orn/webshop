@@ -1,3 +1,5 @@
+import type { Product } from "../../../models/product";
+
 // The base (section + h1)
 function createCartSection(): HTMLElement {
     const section = document.createElement("section");
@@ -36,22 +38,26 @@ function createEmptyCartView(): HTMLElement {
 }
 
 // Filled cart view
-function createFilledCartView(): HTMLElement {
+function createFilledCartView(product: Product): HTMLElement {
     const cartContainer = document.createElement("div");
     cartContainer.className = "cart-container";
 
     const img = document.createElement("img");
     img.className = "cart-container__img";
+    img.src = product.image;
+    img.alt = product.name;
 
     const productName = document.createElement("p");
     productName.className = "cart-container__p";
-    productName.textContent = "SOPHIE - ANGELIC SOUND ENGINEER";
+    productName.textContent = product.name;
 
     const productPrice = document.createElement("p");
     productPrice.className = "cart-container__price";
+    productPrice.textContent = `${product.price}SEK`; 
 
     const button = document.createElement("button");
     button.className = "qty-minus qty-plus";
+    button.addEventListener = 
 
     const buttonRemove = document.createElement("button");
     buttonRemove.className = "removeItems";
