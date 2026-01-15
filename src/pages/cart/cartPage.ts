@@ -1,4 +1,4 @@
-import type { Product } from "../../../models/product";
+import type { Product } from "../../models/product";
 
 // The base (section + h1)
 function createCartSection(): HTMLElement {
