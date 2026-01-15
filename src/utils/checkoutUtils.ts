@@ -1,3 +1,4 @@
+import type { Cart } from "../models/Cart";
 import { createCheckoutCart } from "./htmlUtils";
 
 const shippingButtons = document.getElementsByName("shippingMethod");
@@ -34,4 +35,20 @@ export const checkShipping = () => {
   }
 
   return shippingMethod;
+};
+
+//oklart hur detta ska visas - kanske som en modal? Eller under complete order-knapp?
+export const completeCheckout = () => {
+  const cartString = localStorage.getItem("cart");
+  if (!cartString) return;
+
+  const cart: Cart = JSON.parse(cartString);
+  if (cart.items.length === 0) return;
+
+  let message = `Your order is complete! You have bought: `;
+  cart.items.forEach((item) => {
+    message += item.product.name;
+  });
+
+  alert(message);
 };
