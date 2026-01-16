@@ -36,49 +36,57 @@
     letter-spacing: 0.02em;
   }
 
-  .minusBtn,
-  .plusBtn,
-  .qty {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
+  .qtyContainer {
+    height: fit-content;
+    width: fit-content;
     border: 2px solid black;
-    background: white;
-  }
+    display: flex;
+    align-items: center;
 
-  .minusBtn,
-  .plusBtn {
-    box-sizing: border-box;
-    width: 44px;
-    height: 24px;
-    font-size: 14px;
-    cursor: pointer;
-    padding: 0;
-  }
+    .minusBtn,
+    .plusBtn,
+    .qty {
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      background: white;
+    }
 
-  .qty {
-    box-sizing: border-box;
-    width: 48px;
-    height: 24px;
-    text-align: center;
-    border-left: none;
-    border-right: none;
-    font-size: 14px;
-  }
+    .minusBtn,
+    .plusBtn {
+      box-sizing: border-box;
+      width: 44px;
+      height: 24px;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 0;
+    }
 
-  .minusBtn {
-    border-right: none;
-  }
+    .qty {
+      box-sizing: border-box;
+      width: 48px;
+      height: 24px;
+      text-align: center;
+      border-left: none;
+      border-right: none;
+      font-size: 14px;
+    }
 
-  .plusBtn {
-    border-left: none;
-  }
+    .minusBtn {
+      border-right: none;
+    }
 
-  .minusBtn:hover,
-  .plusBtn:hover {
-    background: #002fa7;
-    color: white;
+    .plusBtn {
+      border-left: none;
+    }
+
+    .minusBtn:hover,
+    .plusBtn:hover {
+      background: #002fa7;
+      color: white;
+    }
   }
 
   #priceMid .row {

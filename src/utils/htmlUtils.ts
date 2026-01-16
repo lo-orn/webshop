@@ -158,6 +158,8 @@ export const createCheckoutCartItem = (item: CartItem) => {
   const textContainer = document.createElement("div");
   textContainer.classList.add("textContainer");
   const name = document.createElement("p");
+  const qtyContainer = document.createElement("div");
+  qtyContainer.classList.add("qtyContainer");
   const minusBtn = document.createElement("button");
   minusBtn.classList.add("minusBtn");
   const plusBtn = document.createElement("button");
@@ -182,10 +184,12 @@ export const createCheckoutCartItem = (item: CartItem) => {
     createCheckoutCart();
   });
 
+  qtyContainer?.appendChild(minusBtn);
+  qtyContainer?.appendChild(qty);
+  qtyContainer?.appendChild(plusBtn);
+
   textContainer?.appendChild(name);
-  textContainer?.appendChild(minusBtn);
-  textContainer?.appendChild(qty);
-  textContainer?.appendChild(plusBtn);
+  textContainer?.appendChild(qtyContainer);
   textContainer?.appendChild(price);
 
   row.appendChild(imgContainer);
