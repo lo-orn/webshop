@@ -1,5 +1,5 @@
 import type { Cart } from "../models/Cart";
-import { clearCart, updateCart } from "./cartUtils";
+import { clearCart } from "./cartUtils";
 import { createCheckoutCart, createCheckoutConfirmation } from "./htmlUtils";
 
 const shippingButtons = document.getElementsByName("shippingMethod");
