@@ -11,6 +11,10 @@ shippingButtons?.forEach((btn) => {
   });
 });
 
+/**
+ * Check which one of the shipping method buttons is checked
+ * Add chosen class to the parent div if checked
+ */
 export const checkChosen = () => {
   shippingButtons.forEach((btn) => {
     let parent = btn.parentElement;
@@ -22,6 +26,10 @@ export const checkChosen = () => {
   });
 };
 
+/**
+ * Check which one of the shipping method buttons is checked
+ * @returns a string that says which button is clicked
+ */
 export const checkShipping = () => {
   const shippingButtons = document.querySelectorAll<HTMLInputElement>(
     "[name=shippingMethod]"
@@ -38,7 +46,14 @@ export const checkShipping = () => {
   return shippingMethod;
 };
 
-//oklart hur detta ska visas - kanske som en modal? Eller under complete order-knapp?
+/**
+ * Gets the cart from localStorage
+ * Checks if there are any items in the cart
+ * If there are items in the cart -
+ * create checkout confirmation and
+ * clear cart
+ * @returns nothing if cart is empty
+ */
 export const completeCheckout = () => {
   const cartString = localStorage.getItem("cart");
   if (!cartString) return;

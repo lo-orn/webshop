@@ -86,11 +86,23 @@ export const createProductCard = (product: Product) => {
 
 /* ---CHECKOUT PAGE---- */
 
+/**
+ * Checks if the cart is empty
+ * if so - create empty cart message
+ * else create html that shows the subtotal,
+ * shipping cost and total cost
+ * @returns nothing if no cart or empty cart
+ */
 export const createCheckoutCart = () => {
   const cartString = localStorage.getItem("cart");
   if (!cartString) return;
 
   const cart: Cart = JSON.parse(cartString);
+
+  if (cart.items.length === 0) {
+    createEmptyCartMessage();
+    return;
+  }
 
   const shippingMethod = checkShipping();
   if (shippingMethod === "express") {
@@ -222,4 +234,17 @@ export const createCheckoutConfirmation = (cart: Cart) => {
   confirmationSection.appendChild(message);
 
   containerSection?.appendChild(confirmationSection);
+};
+
+const createEmptyCartMessage = () => {
+  const section = document.getElementById("priceCountSection");
+  if (!section) return;
+
+  section.innerHTML = "";
+  section.classList.add("emptyCartMessage");
+  const message = document.createElement("p");
+  message.innerHTML =
+    "Your cart seems to be empty. Go back and add some of your favourites!";
+
+  section?.appendChild(message);
 };
