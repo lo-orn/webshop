@@ -1,6 +1,7 @@
 import type { Cart } from "../models/Cart";
 import type { CartItem } from "../models/CartItem";
 import type { Product } from "../models/product";
+import { getProductCategories } from "../services/productService";
 import { getData } from "../services/serviceBase";
 import { addItemToCart, removeOneItemFromCart } from "./cartUtils";
 import { checkShipping } from "./checkoutUtils";
@@ -8,6 +9,16 @@ import { setLastClickedProduct } from "./pageUtils";
 
 /* ---LANDING PAGE---- */
 export const createAllProductCards = async () => {
+  console.log("productCards created");
+  const productCardContainer = document.getElementById(
+    "product-card-container",
+  );
+  if (productCardContainer) {
+    productCardContainer.innerHTML = "";
+  }
+
+  //Add filtering here
+
   const productResponse = await getData();
   const products = productResponse.products;
 
@@ -251,4 +262,26 @@ const createEmptyCartMessage = () => {
     "Your cart seems to be empty. Go back and add some of your favourites!";
 
   section?.appendChild(message);
+};
+
+export const createAllCategories = async () => {
+  const categories = await getProductCategories();
+  categories.forEach((category) => {
+    createCategory(category);
+  });
+};
+
+const createCategory = (category: string) => {
+  const container = document.getElementById("category-container");
+  const box = document.createElement("div");
+  const heading = document.createElement("h4");
+
+  box.classList.add("categoryBox");
+  heading.innerHTML = category.toUpperCase();
+  heading.classList.add("categoryHeading");
+
+  box.addEventListener("click", createAllProductCards);
+
+  box.appendChild(heading);
+  container?.appendChild(box);
 };

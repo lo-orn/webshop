@@ -13,3 +13,14 @@ export const getProductsById = async (id: string) => {
   const product = productResponse.products.find((p) => p.id === parseFloat(id));
   return product;
 };
+
+export const getProductCategories = async () => {
+  const products = await getProducts();
+  let categories: string[] = [];
+
+  products.forEach((item) => {
+    categories.push(item.category);
+  });
+
+  return categories;
+};
