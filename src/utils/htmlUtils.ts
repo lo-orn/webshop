@@ -1,17 +1,40 @@
 import type { Cart } from "../models/Cart";
 import type { CartItem } from "../models/CartItem";
 import type { Product } from "../models/product";
+import { getProductCategories } from "../services/productService";
 import { getData } from "../services/serviceBase";
 import { addItemToCart, removeOneItemFromCart } from "./cartUtils";
 import { checkShipping } from "./checkoutUtils";
 import { setLastClickedProduct } from "./pageUtils";
 
 /* ---LANDING PAGE---- */
-export const createAllProductCards = async () => {
+export const createAllProductCards = async (category: string = "all") => {
+  const productCardContainer = document.getElementById(
+    "product-card-container",
+  );
+  if (productCardContainer) {
+    productCardContainer.innerHTML = "";
+  }
+
+  //Add filtering here
+
   const productResponse = await getData();
   const products = productResponse.products;
 
-  products.forEach((product: Product) => {
+  const categoryProducts = products.filter((product) => {
+    if (category === "all") return product;
+    if (product.category === category) return product;
+  });
+
+  let filteredProducts: Product[] = [];
+
+  if (!categoryProducts) {
+    filteredProducts = products;
+  } else {
+    filteredProducts = categoryProducts;
+  }
+
+  filteredProducts.forEach((product: Product) => {
     createProductCard(product);
   });
 };
@@ -33,7 +56,7 @@ export const createProductCard = (product: Product) => {
   const removeButton = document.createElement("button");
 
   img.src = product.image;
-  category.innerHTML = product.category;
+  category.innerHTML = product.category.toUpperCase();
   name.innerHTML = product.name.toUpperCase();
   description.innerHTML = product.description;
   price.innerHTML = product.price.toString() + "SEK";
@@ -251,4 +274,49 @@ const createEmptyCartMessage = () => {
     "Your cart seems to be empty. Go back and add some of your favourites!";
 
   section?.appendChild(message);
+};
+
+export const createAllCategories = async () => {
+  const categories = await getProductCategories();
+
+  const container = document.getElementById("category-container");
+  const box = document.createElement("div");
+  const heading = document.createElement("h4");
+
+  box.classList.add("categoryBox");
+  heading.innerHTML = "ALL";
+  heading.classList.add("categoryHeading");
+
+  box.addEventListener("click", () => {
+    createAllProductCards();
+  });
+
+  box.appendChild(heading);
+  container?.appendChild(box);
+
+  categories.forEach((category) => {
+    createCategory(category);
+  });
+};
+
+const createCategory = (category: string) => {
+  const container = document.getElementById("category-container");
+  const box = document.createElement("div");
+  const heading = document.createElement("h4");
+
+  box.classList.add("categoryBox");
+  heading.innerHTML = category.toUpperCase();
+  heading.classList.add("categoryHeading");
+
+  box.addEventListener("click", () => {
+    createAllProductCards(category);
+    const productCardSection = document.getElementById("product-card-section");
+    productCardSection?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  });
+
+  box.appendChild(heading);
+  container?.appendChild(box);
 };
