@@ -119,3 +119,30 @@ form {
   color: red;
   margin-top: 0.2rem;
 }
+
+//Tablet
+@media screen and (max-width: 991px) {
+  .inlineContainer {
+    gap: 12px;
+  }
+}
+
+//Mobile
+@media screen and (max-width: 768px) {
+  #checkoutForm {
+    width: 100%;
+    align-items: center;
+
+    section {
+      width: 95%;
+    }
+  }
+
+  .checkout-card {
+    width: 95%;
+  }
+
+  .inlineContainer {
+    flex-direction: column;
+  }
+}

@@ -132,3 +132,35 @@
 .emptyCartMessage {
   padding: 0.5rem !important;
 }
+
+//Mobile
+@media screen and (max-width: 768px) {
+  .pricePart {
+    width: 100%;
+
+    .priceRow {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+
+      .imgContainer {
+        img {
+          width: 100px !important;
+          height: 120px !important;
+        }
+      }
+    }
+  }
+  #priceCountSection {
+    #orderBtn {
+      height: 64px;
+    }
+    .qtyContainer {
+      .minusBtn,
+      .plusBtn,
+      .qty {
+        height: 55px;
+      }
+    }
+  }
+}

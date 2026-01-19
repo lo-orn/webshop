@@ -2,7 +2,7 @@
 @use "../header";
 @use "../footer";
 @use "../landingPage";
-@use "../form";
+@use "./form";
 @use "./checkoutCart";
 @use "./checkoutConfirmation";
 
@@ -19,5 +19,29 @@ main {
   .right {
     position: sticky;
     top: 20px;
+  }
+}
+
+//Tablet
+@media screen and (max-width: 991px) {
+  main {
+    padding: 1rem;
+  }
+}
+
+//Mobile
+@media screen and (max-width: 768px) {
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .right,
+  .left {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
