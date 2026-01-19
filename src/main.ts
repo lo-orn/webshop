@@ -4,6 +4,7 @@ import "./services/productService";
 import "./utils/cartUtils";
 import "./utils/htmlUtils";
 import "./utils/pageUtils";
+import "./utils/headerUtils";
 import { createAllCategories, createAllProductCards } from "./utils/htmlUtils";
 import { findCart } from "./utils/cartUtils";
 

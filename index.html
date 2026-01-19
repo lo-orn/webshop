@@ -3,33 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/7dd7da429f.js"
+      crossorigin="anonymous"
+    ></script>
     <title>The Iconic Series</title>
   </head>
 
   <body>
     <header>
       <div>
-        <p id="headerText">
+        <p id="bannerText">
           FREE SHIPPING ON ORDERS OVER $200 – NEW DROPS 1ST FRIDAY EVERY MONTH
         </p>
       </div>
       <div class="container">
-        <div class="divNav">
-          <p>THE <span id="logo">ICONIC</span> SERIES</p>
+        <div class="divNav" id="left-container">
+          <i class="fa-sharp fa-solid fa-bars" id="hamburgerButton"></i>
+          <h1>THE <span id="logo">ICONIC</span> SERIES</h1>
         </div>
-        <div class="divNav">
+        <nav class="divNav">
           <ul class="nav ulNav">
             <li><a href="">NEW DROPS</a></li>
             <li><a href="">CATEGORIES</a></li>
             <li><a href="">ABOUT</a></li>
-            <li>
-              <a href=""
-                ><img src="src/assets/Vector.png" alt="shopping cart icon"
-              /></a>
+            <li id="cartLink">
+              <a href=""><i class="fa-sharp fa-solid fa-cart-shopping"></i></a>
             </li>
           </ul>
-        </div>
+        </nav>
+
+        <!-- Hamburger menu -->
       </div>
+      <nav class="divNav headerHidden" id="hamburgerMenu">
+        <ul>
+          <li><a href="">NEW DROPS</a></li>
+          <li><a href="">CATEGORIES</a></li>
+          <li><a href="">ABOUT</a></li>
+        </ul>
+      </nav>
     </header>
 
     <!-- MAIN CONTENT -->

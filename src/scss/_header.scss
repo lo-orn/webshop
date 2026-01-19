@@ -1,6 +1,6 @@
-#headerText {
+#bannerText {
   text-align: center;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 500;
   line-height: 1.4;
   margin: 20px 0;
@@ -47,15 +47,16 @@
   margin: 0 auto;
   border: 3px solid #000;
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
   align-items: stretch;
 }
 
 .divNav {
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-
+  width: 49vw; //this should be done better
   padding: 10px 5px;
 }
 
@@ -65,8 +66,88 @@
   margin: 0;
 }
 
-
 .container > .divNav:first-child {
   border-right: 3px solid #000;
 }
 
+#left-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0 2rem;
+}
+
+.headerHidden {
+  display: none !important;
+}
+
+#hamburgerButton {
+  display: none;
+}
+
+.fa-solid {
+  font-size: 2rem;
+}
+//TABLET
+@media screen and (max-width: 991px) {
+  #bannerText {
+    font-size: 1rem;
+  }
+  .divNav {
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+  .ulNav {
+    li {
+      display: none;
+    }
+    #cartLink {
+      display: block;
+    }
+  }
+
+  #hamburgerButton {
+    display: block;
+  }
+
+  #hamburgerMenu {
+    width: 50vw; //this looks like shit
+    border-bottom: 3px solid black;
+    border-right: 3px solid black;
+    border-left: 3px solid black;
+    display: flex;
+    justify-content: flex-start;
+
+    > ul {
+      list-style-type: none;
+
+      a {
+        //this should be refactored since copied from above (mixin? extending?)
+        text-decoration: none;
+        color: #000;
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0;
+      }
+    }
+  }
+}
+
+//MOBILE
+@media screen and (max-width: 768px) {
+  #bannerText {
+    font-size: 0.8rem;
+  }
+  .divNav {
+    width: 46vw;
+
+    h1 {
+      font-size: 1.1rem;
+    }
+  }
+
+  #left-container {
+    padding: 0 0.4rem;
+  }
+}
