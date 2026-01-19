@@ -48,10 +48,16 @@ function createCartItem(item: CartItem, onChange: () => void): HTMLElement {
   const cartContainer = document.createElement("div");
   cartContainer.className = "cart-container";
 
+  const imgWrapper = document.createElement("div");
+  imgWrapper.className = "imgWrapper";
+
   const img = document.createElement("img");
   img.className = "cart-container__img";
   img.src = item.product.image;
   img.alt = item.product.name;
+
+  const priceWrapper = document.createElement("div");
+  priceWrapper.className = "priceWrapper";
 
   const productName = document.createElement("p");
   productName.className = "cart-container__p";
@@ -90,9 +96,10 @@ function createCartItem(item: CartItem, onChange: () => void): HTMLElement {
     onChange();
   });
 
-
+  imgWrapper.appendChild(img);
   qtyWrap.append(buttonMinus, qtyText, buttonPlus);
-  cartContainer.append(img, productName, qtyWrap, productPrice, buttonRemove);
+  priceWrapper.append(productName, productPrice, qtyWrap);
+  cartContainer.append(imgWrapper, productName, qtyWrap, productPrice, buttonRemove);
 
   return cartContainer;
 }
