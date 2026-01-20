@@ -7,13 +7,11 @@ import {
 import { getLastClickedProduct } from "../../utils/pageUtils";
 import "../../scss/pdp.scss";
 import "../../utils/headerUtils";
-import { getQtyInCart } from "../../utils/pdpUtils";
 import { initCartPop, updateHeaderCartAmount } from "../../utils/headerUtils";
 import {
   changeCarouselImageBtnFunction,
   getQtyInCart,
 } from "../../utils/pdpUtils";
-import { initCartPop } from "../../utils/headerUtils";
 
 console.log("PDP FILE LOADED");
 // Kör PDP-kod bara på pdp-sidan
