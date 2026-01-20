@@ -53,8 +53,8 @@
   font-weight: 600;
 }
 
-#pdp-desch {
-  line-height: 1.4
+#pdp-desc {
+  line-height: 1.2
 }
 
 .pdp__buy {
@@ -240,10 +240,17 @@
   .pdp__section {
     grid-template-columns: 1fr;
     gap: 20px;
+
+    #pdp-title {
+      font-size: 24px;
+      text-align: left;
+      margin-bottom: 10px;
+    }
   }
 
   .pdp__media {
     padding: 10px;
+    
     
   }
 
