@@ -68,7 +68,7 @@ function createCartItem(item: CartItem, onChange: () => void): HTMLElement {
   productPrice.textContent = `${item.product.price} SEK`;
 
   const qtyWrap = document.createElement("div");
-  qtyWrap.className = "cart-qty";
+  qtyWrap.className = "cart-container__qtyWrap";
 
   const qtyText = document.createElement("span");
   qtyText.className = "qty";
@@ -171,7 +171,6 @@ function createOrderSummery(cart: Cart): HTMLElement {
   btnContinue.addEventListener("click", () => {
    window.location.href = 'index.html';
   })
-  // Måste kopplas!!
 
   const btnCheckout = document.createElement("button");
   btnCheckout.className = "wrapperSummery__btnCheckout";
@@ -179,8 +178,6 @@ function createOrderSummery(cart: Cart): HTMLElement {
   btnCheckout.addEventListener("click", () => {
     window.location.href = 'checkout.html';
   })
-  
-  // Måste kopplas!!
 
   summery.append(headingSummery, promoSection)
   
