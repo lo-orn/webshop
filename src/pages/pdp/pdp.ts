@@ -7,7 +7,12 @@ import {
 import { getLastClickedProduct } from "../../utils/pageUtils";
 import "../../scss/pdp.scss";
 import "../../utils/headerUtils";
-import { changeCarouselImageBtnFunction, getQtyInCart } from "../../utils/pdpUtils";
+import { getQtyInCart } from "../../utils/pdpUtils";
+import { initCartPop, updateHeaderCartAmount } from "../../utils/headerUtils";
+import {
+  changeCarouselImageBtnFunction,
+  getQtyInCart,
+} from "../../utils/pdpUtils";
 import { initCartPop } from "../../utils/headerUtils";
 
 console.log("PDP FILE LOADED");
@@ -128,6 +133,7 @@ const initQty = (product: Product) => {
   plusBtn.addEventListener("click", async () => {
     await addItemToCart(String(product.id));
     updateQty();
+    updateHeaderCartAmount();
     console.log("Product added");
     console.log(
       "CART AFTER UPDATE:",
@@ -138,6 +144,7 @@ const initQty = (product: Product) => {
   minusBtn.addEventListener("click", () => {
     removeOneItemFromCart(String(product.id));
     updateQty();
+    updateHeaderCartAmount();
     console.log("Product removed");
     console.log(
       "CART AFTER UPDATE:",
@@ -148,6 +155,7 @@ const initQty = (product: Product) => {
   addBtn.addEventListener("click", async () => {
     await addItemToCart(String(product.id));
     updateQty();
+    updateHeaderCartAmount();
     console.log("Product added");
     console.log(
       "CART AFTER UPDATE:",
@@ -210,5 +218,5 @@ export const createThumbnails = (product: Product) => {
 
     container.appendChild(imgContainer);
   }
-  changeCarouselImageBtnFunction(mainImg, images)
+  changeCarouselImageBtnFunction(mainImg, images);
 };
