@@ -249,7 +249,8 @@ export const createCheckoutConfirmation = (cart: Cart) => {
     container.appendChild(name);
     container.appendChild(qty);
     productContainer.appendChild(container);
-  });
+
+    
 
   const message = document.createElement("p");
   message.className = "confirmationMessage";
@@ -261,6 +262,24 @@ export const createCheckoutConfirmation = (cart: Cart) => {
   confirmationSection.appendChild(message);
 
   containerSection?.appendChild(confirmationSection);
+
+  const stamp = document.createElement("div");
+    stamp.className = "approvedStamp";
+    stamp.setAttribute("aria-hidden", "true");
+
+    stamp.innerHTML = `<div class ="approvedStamp__inner">
+    <div class ="approvedStamp__top"> APPROVED</div>
+    <div class ="approvedStamp__bottom"> CHECKOUT COMPLETE
+    </div>`
+
+   containerSection?.appendChild(stamp)
+
+    requestAnimationFrame(() => stamp.classList.add("is-in"))
+    setTimeout(() => {
+      stamp.classList.add("is-out");
+      setTimeout(() => stamp.remove(), 400);
+    }, 2500)
+  });
 };
 
 const createEmptyCartMessage = () => {
