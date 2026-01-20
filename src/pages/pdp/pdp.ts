@@ -186,6 +186,8 @@ export const createThumbnails = (product: Product) => {
       if (i === 0) imgContainer.classList.add("ph-blue");
       if (i === 1) imgContainer.classList.add("ph-black");
       if (i === 2) imgContainer.classList.add("ph-white");
+      if (i === 3) imgContainer.classList.add("ph-yellow");
+      if (i === 4) imgContainer.classList.add("ph-gray");
     }
 
     container.appendChild(imgContainer);
