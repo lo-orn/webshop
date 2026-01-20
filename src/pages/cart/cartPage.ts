@@ -82,14 +82,6 @@ function createCartItem(item: CartItem, onChange: () => void): HTMLElement {
   buttonPlus.className = "qty-plus";
   buttonPlus.textContent = "+";
 
-  const btnRemoveWrapper = document.createElement("div");
-  btnRemoveWrapper.className = "btnRemoveWrapper";
-
-  const buttonRemove = document.createElement("button");
-  buttonRemove.className = "removeItems";
-  buttonRemove.textContent = "REMOVE";
-  // Måste fixa koppling!!
-
   const actionsRow = document.createElement("div");
   actionsRow.className = "cart-actions";
 
@@ -106,8 +98,7 @@ function createCartItem(item: CartItem, onChange: () => void): HTMLElement {
   imgWrapper.appendChild(img);
   qtyWrap.append(buttonMinus, qtyText, buttonPlus);
   priceWrapper.append(productName, productPrice);
-  btnRemoveWrapper.append(buttonRemove);
-  actionsRow.append(qtyWrap, btnRemoveWrapper);
+  actionsRow.appendChild(qtyWrap);
   cartContainer.append(imgWrapper, priceWrapper, actionsRow);
 
   return cartContainer;
@@ -177,11 +168,18 @@ function createOrderSummery(cart: Cart): HTMLElement {
   const btnContinue = document.createElement("button");
   btnContinue.className = "wrapperSummery__btnContinue";
   btnContinue.textContent = "CONTINUE SHOPPING";
+  btnContinue.addEventListener("click", () => {
+   window.location.href = 'index.html';
+  })
   // Måste kopplas!!
 
   const btnCheckout = document.createElement("button");
   btnCheckout.className = "wrapperSummery__btnCheckout";
   btnCheckout.textContent = "CHECKOUT";
+  btnCheckout.addEventListener("click", () => {
+    window.location.href = 'checkout.html';
+  })
+  
   // Måste kopplas!!
 
   summery.append(headingSummery, promoSection)
