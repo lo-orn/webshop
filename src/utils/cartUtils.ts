@@ -1,8 +1,13 @@
-import type { Product } from "../models/product";
+import type { Cart } from "../models/Cart";
+import type { CartItem } from "../models/CartItem";
 import { getProductsById } from "../services/productService";
 
 export const createCart = () => {
-  localStorage.setItem("cart", "[]");
+  let cart: Cart = {
+    items: [],
+  };
+
+  localStorage.setItem("cart", JSON.stringify(cart));
 };
 
 export const findCart = () => {
@@ -10,7 +15,7 @@ export const findCart = () => {
   if (cart) {
     console.log("a cart exists");
   } else {
-    console.log("cart does not exist");
+    console.log("cart does not exist, creating cart");
     createCart();
   }
 };
@@ -25,16 +30,41 @@ export const findCart = () => {
  */
 export const addItemToCart = async (id: string) => {
   const product = await getProductsById(id);
+  if (!product) return;
+
+  let cart: Cart;
   let cartString = localStorage.getItem("cart");
+
   if (cartString) {
-    const cartArray = JSON.parse(cartString);
-    cartArray.push(product);
-    localStorage.setItem("cart", JSON.stringify(cartArray));
+    cart = JSON.parse(cartString);
+  } else
+    cart = {
+      items: [],
+    };
+
+  if (cart.items.length !== 0) {
+    let cartItem: CartItem | undefined = cart.items.find(
+      (item) => item.product.id === parseFloat(id)
+    );
+
+    if (cartItem) {
+      cartItem.amount += 1;
+    } else {
+      cartItem = {
+        product: product,
+        amount: 1,
+      };
+      cart.items.push(cartItem);
+    }
   } else {
-    console.log("cart is empty");
+    let cartItem = {
+      product: product,
+      amount: 1,
+    };
+    cart.items.push(cartItem);
   }
 
-  console.log("this is cart:", localStorage.getItem("cart"));
+  localStorage.setItem("cart", JSON.stringify(cart));
 };
 
 /**
@@ -45,35 +75,51 @@ export const addItemToCart = async (id: string) => {
  * filter out every product that doesnt match the id param
  * add that new cart to localStorage
  */
-export const removeProductFromCart = (id: string) => {
-  let cartString = localStorage.getItem("cart");
-  if (cartString) {
-    const cartArray = JSON.parse(cartString);
-    console.log("old cart:", cartArray);
+export const removeProductFromCart = (id: string, cart: Cart) => {
+  const newItems = cart.items.filter(
+    (item: CartItem) => item.product.id !== parseFloat(id)
+  );
 
-    const newCartArray = cartArray.filter(
-      (product: Product) => product.id !== parseFloat(id)
-    );
-    console.log("new cart:", newCartArray);
+  cart.items = newItems;
 
-    localStorage.setItem("cart", JSON.stringify(newCartArray));
-  } else {
-    console.log("No cart was found :(");
-  }
+  localStorage.setItem("cart", JSON.stringify(cart));
 };
 
-//remove one item 
+//remove one item
 
-export const removeOneItemFromCart = (id: string) => { 
-  const cartString = localStorage.getItem("cart"); 
-  if(!cartString) return; 
-  const cartArray = JSON.parse(cartString) as Product[]; 
-  console.log("old cart:", cartArray);
-  const numericID = Number(id); 
-  const index = cartArray.findIndex((product) => product.id === numericID ); 
-  if(index === -1) return; 
-  cartArray.splice(index, 1) 
-  console.log("cart after:", cartArray);
-localStorage.setItem("cart", JSON.stringify(cartArray)) 
+export const removeOneItemFromCart = (id: string) => {
+  const cartString = localStorage.getItem("cart");
+  if (!cartString) return;
+
+  const cart: Cart = JSON.parse(cartString);
+
+  cart.items.forEach((item: CartItem, index) => {
+    if (item.product.id === parseFloat(id)) {
+      item.amount -= 1;
+
+      item.amount < 1 ? cart.items.splice(index, 1) : null;
+    } else {
+      console.log("couldn't find the product in the cart :(");
+    }
+  });
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+};
+
+export const updateCart = (cart: Cart) => {
+  if (cart.items.length === 0) {
+    cart.shippingPrice = undefined;
+  } else {
+    cart.shippingPrice = 49;
+  }
+  const cartString = JSON.stringify(cart);
+  localStorage.setItem("cart", cartString);
+};
+
+export const clearCart = () => {
+  let cart: Cart = {
+    items: [],
+  };
+  localStorage.setItem("cart", JSON.stringify(cart));
 };
 

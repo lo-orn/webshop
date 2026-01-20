@@ -1,12 +1,13 @@
-#headerText {
+#bannerText {
   text-align: center;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 500;
   line-height: 1.4;
   margin: 20px 0;
   letter-spacing: -0.01em;
   color: #2c2825;
 }
+
 
 .nav {
   text-decoration: none;
@@ -21,7 +22,6 @@
   align-items: center;
   justify-content: center;
   gap: 40px;
-
   list-style: none;
   margin: 0;
   padding: 0;
@@ -29,7 +29,7 @@
 
 .ulNav a {
   text-decoration: none;
-  color: #000;
+  color: black;
   font-size: 16px;
   font-weight: 400;
   letter-spacing: 0;
@@ -43,22 +43,24 @@
 
 .container {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
-
-  border: 2px solid #000;
-
+  border: 3px solid black;
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
   align-items: stretch;
+  position: relative;
 }
 
+
 .divNav {
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  padding: 30px 20px;
+  flex: 1 1 0;
+  padding: 10px 5px;
+  width: auto;
 }
 
 .divNav p {
@@ -67,43 +69,123 @@
   margin: 0;
 }
 
-a {
-  text-decoration: none;
-}
-
 .container > .divNav:first-child {
-  border-right: 2px solid #000;
+  border-right: 3px solid black;
 }
 
-.nav {
-  text-decoration: none;
-}
-
-.divNav {
-  border: 2px solid black;
-  width: 50%;
-  padding: 40px;
-}
-
-#logo {
-  font-weight: bolder;
-}
-
-.ulNav {
-  display: flex;
-  list-style: none;
-}
-
-.container {
-  display: flex;
-}
-
-.divNav {
+#left-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 2rem;
+  padding: 0 2rem;
 }
 
-a {
+.headerHidden {
+  display: none !important;
+}
+
+#hamburgerMenu {
+  display: none;
+}
+
+#hamburgerButton {
+  display: none;
+}
+
+.fa-solid {
+  font-size: 2rem;
+}
+//TABLET
+@media screen and (max-width: 991px) {
+  #bannerText {
+    font-size: 1rem;
+  }
+
+  
+  .divNav {
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+  .ulNav {
+    li {
+      display: none;
+    }
+    #cartLink {
+      display: block;
+    }
+  }
+
+  #hamburgerButton {
+    display: block;
+  }
+
+
+
+#hamburgerMenu {
+  position: absolute;
+  left: 0;
+  width: 50%;
+  margin-left: auto;
+  border: 3px solid black;
+  display: none;
+  z-index: 9999;
+  background: white;
+  top: calc(100% - 3px);
+  display: none;
+
+  ul {
+    list-style-type: none;
+    margin: none;
+    padding: 10px 20px;
+   
+}
+a{
+  color: black;
   text-decoration: none;
+  
+  &:hover {
+    font-weight: 700;
+    background: #f9f9f9
+  }
+}
+}
+
+  #hamburgerMenu:not(.headerHidden) {
+    display: flex;
+    justify-content: flex-start;
+
+  }
+  
+ #hamburgerMeny > 
+
+      #hamburgerMeny  a {
+        //this should be refactored since copied from above (mixin? extending?)
+        text-decoration: none;
+        color: #000;
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0;
+      }
+    
+    }
+  
+
+
+//MOBILE
+@media screen and (max-width: 768px) {
+  #bannerText {
+    font-size: 0.8rem;
+  }
+  .divNav {
+    width: 46vw;
+
+    h1 {
+      font-size: 1.1rem;
+    }
+  }
+
+  #left-container {
+    padding: 0 0.4rem;
+  }
 }

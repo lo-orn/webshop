@@ -1,0 +1,49 @@
+@use "../base";
+@use "../header";
+@use "../footer";
+@use "../landingPage";
+@use "./form";
+@use "./checkoutCart";
+@use "./checkoutConfirmation";
+@use "../cartModal";
+@use "./checkoutAnimation";
+
+main {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 320px;
+  align-items: start;
+
+  .left {
+    min-width: 0;
+  }
+
+  .right {
+    position: sticky;
+    top: 20px;
+  }
+}
+
+//Tablet
+@media screen and (max-width: 991px) {
+  main {
+    padding: 1rem;
+  }
+}
+
+//Mobile
+@media screen and (max-width: 768px) {
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .right,
+  .left {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

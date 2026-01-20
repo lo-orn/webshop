@@ -6,7 +6,10 @@ import {
 } from "../../utils/cartUtils";
 import { getLastClickedProduct } from "../../utils/pageUtils";
 import "../../scss/pdp.scss";
+import "../../utils/headerUtils";
 import { createThumbnails } from "./pdp_carousel";
+import { getQtyInCart } from "../../utils/pdpUtils";
+import { initCartPop } from "../../utils/cartModalUtils";
 
 console.log("PDP FILE LOADED");
 // Kör PDP-kod bara på pdp-sidan
@@ -27,7 +30,7 @@ export const renderProduct = (product: Product) => {
   descEl.textContent = product.description;
 
   const imgEl = document.getElementById(
-    "pdp-main-img"
+    "pdp-main-img",
   ) as HTMLImageElement | null;
   if (imgEl) {
     imgEl.src = product.image;
@@ -67,7 +70,7 @@ export const initTabs = (product: Product) => {
   if (!panel) return;
 
   //default
-  panel.textContent = `Kategorier: ${product.categories.join(", ")}`;
+  panel.textContent = `Category: ${product.category}`;
 
   //click on tabs
   tabs.forEach((tab) => {
@@ -78,14 +81,14 @@ export const initTabs = (product: Product) => {
 
       const tabName = tab.dataset.tab;
       if (tabName === "details") {
-        panel.textContent = `Kategorier: ${product.categories.join(", ")}`;
+        panel.textContent = `Category: ${product.category}`;
       }
       if (tabName === "story") {
         panel.textContent = product.description;
       }
 
       if (tabName === "shipping") {
-        panel.textContent = "Leveranstid 2-5 arbetsdagar.";
+        panel.textContent = "Delivery 2-5 working days.";
       }
     });
   });
@@ -94,59 +97,64 @@ export const initTabs = (product: Product) => {
 //initQty
 
 const initQty = (product: Product) => {
-  const getQtyInCart = (productId: number) => {
-    const cartString = localStorage.getItem("cart");
-    if (!cartString) return 0;
-    const cartArray = JSON.parse(cartString) as Product[];
-    return cartArray.filter((p) => p.id === productId).length;
-  };
-
   findCart();
 
   const qtyEl = document.getElementById("qty-value") as HTMLSpanElement | null;
   const minusBtn = document.getElementById(
-    "qty-minus"
+    "qty-minus",
   ) as HTMLButtonElement | null;
   const plusBtn = document.getElementById(
-    "qty-plus"
+    "qty-plus",
   ) as HTMLButtonElement | null;
   const addBtn = document.getElementById(
-    "add-to-cart"
+    "add-to-cart",
   ) as HTMLButtonElement | null;
 
-  const createQty = () => {
+  if (!qtyEl || !minusBtn || !plusBtn || !addBtn) {
+    console.warn("Qty-elements missing on site");
+    return;
+  }
+
+  const updateQty = () => {
     if (!qtyEl) return;
     qtyEl.textContent = String(getQtyInCart(product.id));
   };
 
-  createQty();
+  updateQty();
+  console.log("Initial qty:", getQtyInCart(product.id));
 
-  if (plusBtn) {
-    plusBtn.addEventListener("click", async () => {
-      await addItemToCart(String(product.id));
-      createQty();
-      console.log("Product added");
-    });
-  }
+  plusBtn.addEventListener("click", async () => {
+    await addItemToCart(String(product.id));
+    updateQty();
+    console.log("Product added");
+    console.log(
+      "CART AFTER UPDATE:",
+      JSON.parse(localStorage.getItem("cart") || "{}"),
+    );
+  });
 
-  if (minusBtn) {
-    minusBtn.addEventListener("click", () => {
-      removeOneItemFromCart(String(product.id));
-      createQty();
-      console.log("Product removed");
-    });
-  }
+  minusBtn.addEventListener("click", () => {
+    removeOneItemFromCart(String(product.id));
+    updateQty();
+    console.log("Product removed");
+    console.log(
+      "CART AFTER UPDATE:",
+      JSON.parse(localStorage.getItem("cart") || "{}"),
+    );
+  });
 
-  if (addBtn) {
-    addBtn.addEventListener("click", async () => {
-      await addItemToCart(String(product.id));
-      createQty();
-      console.log("Product added");
-    });
-  }
-  console.log("qty elements:", { qtyEl, minusBtn, plusBtn, addBtn });
+  addBtn.addEventListener("click", async () => {
+    await addItemToCart(String(product.id));
+    updateQty();
+    console.log("Product added");
+    console.log(
+      "CART AFTER UPDATE:",
+      JSON.parse(localStorage.getItem("cart") || "{}"),
+    );
+  });
 };
 
-initPdp();
-
-//initAddToCart(product)
+document.addEventListener("DOMContentLoaded", () => {
+  initCartPop();
+  initPdp();
+});

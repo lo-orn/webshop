@@ -3,32 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/7dd7da429f.js"
+      crossorigin="anonymous"
+    ></script>
     <title>the-webshop-template-checkout</title>
   </head>
   <body>
     <!-- HEADER START -->
     <header>
       <div>
-        <p id="headerText">
+        <p id="bannerText">
           FREE SHIPPING ON ORDERS OVER $200 – NEW DROPS 1ST FRIDAY EVERY MONTH
         </p>
       </div>
       <div class="container">
-        <div class="divNav">
-          <p>THE <span id="logo">ICONIC</span> SERIES</p>
+        <div class="divNav" id="left-container">
+          <i class="fa-sharp fa-solid fa-bars" id="hamburgerButton"></i>
+          <h1>THE <span id="logo">ICONIC</span> SERIES</h1>
         </div>
-        <div class="divNav">
+
+        <nav class="divNav">
           <ul class="nav ulNav">
             <li><a href="">NEW DROPS</a></li>
-            <li><a href="">CATEGORIES</a></li>
+            <li><a href="#category-section">CATEGORIES</a></li>
             <li><a href="">ABOUT</a></li>
-            <li>
-              <a href=""
-                ><img src="src/assets/Vector.png" alt="shopping cart icon"
-              /></a>
+            <li id="cartLink" class="cartHover">
+              <a href=""><i class="fa-sharp fa-solid fa-cart-shopping"></i></a>
             </li>
           </ul>
-        </div>
+        </nav>
+
+        <nav class="headerHidden" id="hamburgerMenu">
+          <ul>
+            <li><a href="">NEW DROPS</a></li>
+            <li><a href="#category-section">CATEGORIES</a></li>
+            <li><a href="">ABOUT</a></li>
+          </ul>
+        </nav>
+
+        <div id="cartPop" class="cartPop" aria-hidden="true"></div>
       </div>
     </header>
     <!-- HEADER END -->
@@ -36,139 +50,141 @@
     <!-- MAIN START -->
     <main>
       <section class="left">
-        <section id="shippingInfoSection">
-          <h3>SHIPPING INFORMATION</h3>
-          <form id="shippingInfoForm">
-            <div class="inlineContainer">
-              <div class="formColumn">
-                <label for="firstName">FIRST NAME*</label>
-                <input type="text" id="firstName" />
+        <form id="checkoutForm">
+          <section class="checkout-card" id="shippingInfoSection">
+            <h3>SHIPPING INFORMATION</h3>
+            <div id="shippingInfoForm">
+              <div class="inlineContainer">
+                <div class="formColumn">
+                  <label for="firstName">FIRST NAME*</label>
+                  <input type="text" id="firstName" placeholder="John" />
+                </div>
+
+                <div class="formColumn">
+                  <label for="lastName">LAST NAME*</label>
+                  <input type="text" id="lastName" placeholder="Doe" />
+                </div>
               </div>
 
               <div class="formColumn">
-                <label for="lastName">LAST NAME*</label>
-                <input type="text" id="lastName" />
-              </div>
-            </div>
-
-            <div class="formColumn">
-              <label for="email">EMAIL ADDRESS*</label>
-              <input type="email" id="email" />
-            </div>
-
-            <div class="formColumn">
-              <label for="phone">PHONE NUMBER*</label>
-              <input type="text" id="phone" />
-            </div>
-
-            <div class="formColumn">
-              <label for="street">STREET ADDRESS*</label>
-              <input type="text" id="street" />
-            </div>
-
-            <div class="formColumn">
-              <label for="additional">APT, SUITE, ETC. (OPTIONAL)</label>
-              <input type="text" id="additional" />
-            </div>
-
-            <div class="inlineContainer">
-              <div class="formColumn">
-                <label for="city">CITY*</label>
-                <input type="text" id="city" />
+                <label for="email">EMAIL ADDRESS*</label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="john.doe@email.com"
+                />
               </div>
 
               <div class="formColumn">
-                <label for="state">STATE*</label>
-                <input type="text" id="state" />
+                <label for="phone">PHONE NUMBER*</label>
+                <input type="text" id="phone" placeholder="+46 000 000 000" />
               </div>
 
               <div class="formColumn">
-                <label for="zipCode">ZIP CODE*</label>
-                <input type="text" id="zipCode" />
-              </div>
-            </div>
-            <div class="formColumn">
-              <label for="country">COUNTRY</label>
-              <input type="text" id="country" />
-            </div>
-          </form>
-        </section>
-
-        <section id="shippingMethodSection">
-          <h3>SHIPPING METHOD</h3>
-          <form id="shippingMethodForm">
-            <div class="btn" id="standardShpBtn">
-              <input type="radio" name="shippingMethod" />
-              <div class="btnText">
-                <p class="btnHeading">STANDARD SHIPPING</p>
-                <p class="btnInfo">5-7 BUSINESS DAYS</p>
-              </div>
-            </div>
-            <div class="btn chosen" id="expressShpBtn">
-              <input type="radio" name="shippingMethod" checked />
-              <div class="btnText">
-                <p class="btnHeading">EXPRESS SHIPPING</p>
-                <p class="btnInfo">2-3 BUSINESS DAYS</p>
-              </div>
-            </div>
-          </form>
-        </section>
-
-        <section id="paymentInfoSection">
-          <h3>PAYMENT INFORMATION</h3>
-          <form id="paymentInfoForm">
-            <div class="btn">
-              <p class="btnHeading">CREDIT CARD</p>
-            </div>
-
-            <div class="formColumn">
-              <label for="cardNumber">CARD NUMBER*</label>
-              <input type="number" id="cardNumber" />
-            </div>
-
-            <div class="formColumn">
-              <label for="cardHolder">CARD HOLDER*</label>
-              <input type="text" id="cardHolder" />
-            </div>
-
-            <div class="inlineContainer">
-              <div class="formColumn">
-                <label for="expiryDate">EXPIRY DATE*</label>
-                <input type="text" id="expiryDate" />
+                <label for="street">STREET ADDRESS*</label>
+                <input type="text" id="street" placeholder="123 Main Street" />
               </div>
 
               <div class="formColumn">
-                <label for="cvvCode">CVV*</label>
-                <input type="number" id="cvvCode" />
+                <label for="additional">APT, SUITE, ETC. (OPTIONAL)</label>
+                <input type="text" id="additional" placeholder="Apartment 2B" />
+              </div>
+
+              <div class="inlineContainer">
+                <div class="formColumn">
+                  <label for="city">CITY*</label>
+                  <input type="text" id="city" placeholder="New York" />
+                </div>
+
+                <div class="formColumn">
+                  <label for="state">STATE*</label>
+                  <input type="text" id="state" placeholder="NY" />
+                </div>
+
+                <div class="formColumn">
+                  <label for="zipCode">ZIP CODE*</label>
+                  <input type="text" id="zipCode" placeholder="10001" />
+                </div>
+              </div>
+              <div class="formColumn">
+                <label for="country">COUNTRY</label>
+                <input type="text" id="country" placeholder="United States" />
               </div>
             </div>
+          </section>
 
-            <div class="formColumn">
-              <label for="billingAddress"
-                >BILLING ADDRESS SAME AS SHIPPING</label
-              >
-              <input type="checkbox" id="billingAddress" />
+          <section id="shippingMethodSection">
+            <h3>SHIPPING METHOD</h3>
+            <div id="shippingMethodForm">
+              <div class="btn" id="standardShpBtn">
+                <input type="radio" name="shippingMethod" value="standard" />
+                <div class="btnText">
+                  <p class="btnHeading">STANDARD SHIPPING</p>
+                  <p class="btnInfo">5-7 BUSINESS DAYS</p>
+                </div>
+              </div>
+              <div class="btn chosen" id="expressShpBtn">
+                <input
+                  type="radio"
+                  name="shippingMethod"
+                  checked
+                  value="express"
+                />
+                <div class="btnText">
+                  <p class="btnHeading">EXPRESS SHIPPING</p>
+                  <p class="btnInfo">2-3 BUSINESS DAYS</p>
+                </div>
+              </div>
             </div>
-          </form>
-        </section>
+          </section>
+
+          <section class="checkout-card" id="paymentInfoSection">
+            <h3>PAYMENT INFORMATION</h3>
+            <div id="paymentInfoForm">
+              <div class="btn" id="btnCreditCard">
+                <p class="btnHeading">CREDIT CARD</p>
+              </div>
+
+              <div class="formColumn">
+                <label for="cardNumber">CARD NUMBER*</label>
+                <input
+                  type="number"
+                  id="cardNumber"
+                  placeholder="1234 5678 9012 3456"
+                />
+              </div>
+
+              <div class="formColumn">
+                <label for="cardHolder">CARD HOLDER*</label>
+                <input type="text" id="cardHolder" placeholder="John Doe" />
+              </div>
+
+              <div class="inlineContainer">
+                <div class="formColumn">
+                  <label for="expiryDate">EXPIRY DATE*</label>
+                  <input type="text" id="expiryDate" placeholder="MM/YY" />
+                </div>
+
+                <div class="formColumn">
+                  <label for="cvvCode">CVV*</label>
+                  <input type="number" id="cvvCode" placeholder="123" />
+                </div>
+              </div>
+
+              <div class="formColumn">
+                <label for="billingAddress"
+                  >BILLING ADDRESS SAME AS SHIPPING</label
+                >
+                <input type="checkbox" id="billingAddress" />
+              </div>
+            </div>
+          </section>
+        </form>
       </section>
 
-      <section class="right">
-        <section id="priceCountSection">
-          <div class="pricePart" id="priceTop">
-            <div class="priceLeft">
-              <img
-                id="productImg"
-                src="./public/images/productImages/sophie.jpg"
-                alt=""
-              />
-            </div>
-            <div class="priceRight">
-              <p id="productName">SOPHIE</p>
-              <p>QTY: <span id="productQty">1</span></p>
-              <p>$<span id="productPrice"></span></p>
-            </div>
-          </div>
+      <section class="right" id="sectionRight">
+        <section class="checkout-card" id="priceCountSection">
+          <div class="pricePart" id="priceTop"></div>
           <div class="pricePart" id="priceMid">
             <div class="row">
               <p>SUBTOTAL</p>
@@ -178,16 +194,14 @@
               <p>SHIPPING</p>
               <span id="shippingPrice"></span>
             </div>
-            <div class="row">
-              <p>TAX (8%)</p>
-              <span id="taxPrice"></span>
-            </div>
           </div>
           <div class="pricePart" id="priceBottom">
             <span>TOTAL</span>
-            <span>$ <span id="totalPrice"></span></span>
+            <span>$<span id="totalPrice"></span></span>
           </div>
-          <button id="orderBtn">COMPLETE ORDER</button>
+          <button type="submit" form="checkoutForm" id="orderBtn">
+            COMPLETE ORDER
+          </button>
         </section>
       </section>
     </main>

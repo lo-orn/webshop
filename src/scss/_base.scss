@@ -7,7 +7,26 @@
   background: white;
 }
 
+
+*, *::before, *::after
+{
+  box-sizing: border-box;
+}
 body {
   margin: 0;
-  box-sizing: border-box;
+}
+
+header, main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+}
+
+@media (max-width: 1200px) {
+  header, main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
