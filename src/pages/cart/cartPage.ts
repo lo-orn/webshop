@@ -199,6 +199,7 @@ function createOrderSummery(cart: Cart): HTMLElement {
 
 // Init
 export const initCartPage = async () => {
+  updateHeaderCartAmount();
   
   await Promise.resolve(findCart());
 
