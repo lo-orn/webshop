@@ -78,6 +78,20 @@ export const renderCartPop = (cartPop: HTMLElement) => {
 
     cartPop.appendChild(row);
   });
+
+  const buttonRow = document.createElement("div");
+  buttonRow.className = "cartRow";
+
+  const button = document.createElement("button");
+  button.innerHTML = "GO TO CHECKOUT";
+  button.className = "go-to-checkout";
+
+  button.addEventListener("click", () => {
+    window.location.href = "checkout.html";
+  });
+
+  buttonRow.appendChild(button);
+  cartPop.appendChild(buttonRow);
 };
 
 // init cart popup
@@ -133,7 +147,6 @@ export const initCartPop = () => {
   });
 };
 
-
 // open popup after add to cart
 export const openCartPopAfterAdd = () => {
   const cartPop = document.getElementById("cartPop");
@@ -143,4 +156,3 @@ export const openCartPopAfterAdd = () => {
   cartPop.classList.add("isOpen");
   cartPop.setAttribute("aria-hidden", "false");
 };
-

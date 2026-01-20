@@ -109,8 +109,11 @@ const initQty = (product: Product) => {
   const addBtn = document.getElementById(
     "add-to-cart",
   ) as HTMLButtonElement | null;
+  const checkoutButton = document.getElementById(
+    "go-to-checkout",
+  ) as HTMLButtonElement | null;
 
-  if (!qtyEl || !minusBtn || !plusBtn || !addBtn) {
+  if (!qtyEl || !minusBtn || !plusBtn || !addBtn || !checkoutButton) {
     console.warn("Qty-elements missing on site");
     return;
   }
@@ -151,6 +154,10 @@ const initQty = (product: Product) => {
       "CART AFTER UPDATE:",
       JSON.parse(localStorage.getItem("cart") || "{}"),
     );
+  });
+
+  checkoutButton.addEventListener("click", () => {
+    window.location.href = "checkout.html";
   });
 };
 

@@ -1,9 +1,7 @@
-
 @use "./base";
 @use "./header";
 @use "./landingPage";
 @use "./cartModal";
-
 
 /*-- top section --*/
 .pdp__section {
@@ -32,10 +30,9 @@
 /*-- info --*/
 
 .pdp__info {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 #pdp-title {
@@ -54,7 +51,7 @@
 }
 
 #pdp-desc {
-  line-height: 1.2
+  line-height: 1.2;
 }
 
 .pdp__buy {
@@ -78,8 +75,8 @@
     cursor: pointer;
 
     &:hover {
-      background: #002FA7;
-      border: #002FA7;
+      background: #002fa7;
+      border: #002fa7;
       color: white;
     }
   }
@@ -109,39 +106,39 @@
 
 /* -- quantity --*/
 
-  #qty-minus {
-    border: none;
+#qty-minus {
+  border: none;
+}
+
+#qty-plus {
+  border: none;
+}
+
+#qty-value {
+  width: 40px;
+  height: 30px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  text-align: center;
+  padding-top: 2px;
+}
+
+#add-to-cart,
+#go-to-checkout {
+  height: 30px;
+  width: 200px;
+  border: 2px solid black;
+  background: white;
+  color: black;
+  cursor: pointer;
+  text-align: center;
+
+  &:hover {
+    background-color: #002fa7;
+    border-color: #002fa7;
+    color: white;
   }
-
-  #qty-plus {
-    border: none;
-  }
-
-  #qty-value {
-        width: 40px;
-        height: 30px; 
-        border: none;
-        background: white;
-        cursor: pointer;
-        text-align: center;
-        padding-top: 2px;    
-    }
-
-
-#add-to-cart {
-    height: 30px;
-    width: 200px;
-    border: 2px solid black;
-    background: white;
-    color: black;
-    cursor: pointer;
-    text-align: center;
-
-    &:hover {
-        background-color: #002FA7;
-        border-color: #002FA7;
-        color: white;
-    } 
 }
 
 /* -- thumbnails --*/
@@ -152,7 +149,6 @@
   gap: 20px;
   width: 100%;
   justify-content: space-between;
-  
 }
 
 .thumbnailContainer {
@@ -162,7 +158,6 @@
   background: white;
   overflow: hidden;
   cursor: pointer;
-
 }
 
 .thumbnail {
@@ -171,7 +166,6 @@
   object-fit: contain;
   display: block;
 }
-
 
 .pdp__thumbs {
   margin-top: 20px;
@@ -229,9 +223,6 @@
   min-height: 120px;
 }
 
-
-
-
 .carouselBtns {
   display: none;
 }
@@ -250,14 +241,11 @@
 
   .pdp__media {
     padding: 10px;
-    
-    
   }
 
   #pdp-main-img {
     max-width: 320px;
     height: auto;
-
   }
 
   .pdp__qty {
@@ -265,7 +253,8 @@
     justify-content: space-between;
   }
 
-  #add-to-cart {
+  #add-to-cart,
+  #go-to-checkout {
     width: 100%;
     height: 40px;
   }
@@ -296,15 +285,13 @@
     gap: 1rem;
     width: 100%;
     height: 50px;
-    
+
     button {
       flex: 1;
       margin-top: 10px;
       width: 100px;
       background: white;
       border: 2px solid black;
-      
     }
   }
-
 }
