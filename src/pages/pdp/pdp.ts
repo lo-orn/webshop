@@ -7,7 +7,7 @@ import {
 import { getLastClickedProduct } from "../../utils/pageUtils";
 import "../../scss/pdp.scss";
 import "../../utils/headerUtils";
-import { getQtyInCart } from "../../utils/pdpUtils";
+import { changeCarouselImageBtnFunction, getQtyInCart } from "../../utils/pdpUtils";
 import { initCartPop } from "../../utils/headerUtils";
 
 console.log("PDP FILE LOADED");
@@ -210,4 +210,5 @@ export const createThumbnails = (product: Product) => {
 
     container.appendChild(imgContainer);
   }
+  changeCarouselImageBtnFunction(mainImg, images)
 };

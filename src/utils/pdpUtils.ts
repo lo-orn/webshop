@@ -1,4 +1,5 @@
 import type { Cart } from "../models/Cart";
+import type { Product } from "../models/product";
 
  export const getQtyInCart = (productId: number) => {
     const cartString = localStorage.getItem("cart");
@@ -11,5 +12,31 @@ import type { Cart } from "../models/Cart";
 
     return item ? item.amount : 0;
   };
+
+  export const changeCarouselImageBtnFunction = (mainImg: HTMLImageElement, images: string[]) => {
+
+    let currentIndex = 0
+
+
+    const backBtn = document.getElementById("backBtn")
+    const nextBtn = document.getElementById("nextBtn")
+
+    nextBtn?.addEventListener("click", () => {
+      currentIndex += 1;
+      
+      if(currentIndex >= images.length) {
+        currentIndex = 0
+      }
+      mainImg.src = images[currentIndex]
+    })
+
+    backBtn?.addEventListener("click", () => {
+    currentIndex -= 1;
+    if(currentIndex < 0) {
+     currentIndex = images.length - 1
+    }
+    mainImg.src = images[currentIndex]
+})
+  }
 
   
