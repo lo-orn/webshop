@@ -8,6 +8,7 @@ import { getLastClickedProduct } from "../../utils/pageUtils";
 import "../../scss/pdp.scss";
 import { createThumbnails } from "./pdp_carousel";
 import { getQtyInCart } from "../../utils/pdpUtils";
+import { initCartPop } from "../../utils/cartModalUtils";
 
 console.log("PDP FILE LOADED");
 // Kör PDP-kod bara på pdp-sidan
@@ -147,7 +148,12 @@ const initQty = (product: Product) => {
   })
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  initCartPop();
+  initPdp();
+});
 
-initPdp();
+
+
 
 

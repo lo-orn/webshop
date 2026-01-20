@@ -1,98 +1,146 @@
 import type { Cart } from "../models/Cart";
+import { addItemToCart, removeOneItemFromCart } from "./cartUtils";
 
 console.log("cartPop.ts loaded");
 
+// get cart from local storage
 const getCartFromLS = (): Cart | null => {
   const cartString = localStorage.getItem("cart");
   if (!cartString) return null;
   return JSON.parse(cartString);
 };
 
-
+// render cart popup
 export const renderCartPop = (cartPop: HTMLElement) => {
-    const cart = getCartFromLS();
-    if(!cart) return
+  const cart = getCartFromLS();
+  const items = cart?.items ?? [];
 
-    const items = cart?.items ?? [];
+  cartPop.innerHTML = "";
 
-    if(!cartPop) return;
-    cartPop.innerHTML = "";
-    
-    if(items.length === 0) {
-        cartPop.innerHTML = `<p>YOUR CART IS EMPTY</p>`
-        return;
-    }
+  // cart is empty
+  if (items.length === 0) {
+    cartPop.innerHTML = `<p>YOUR CART IS EMPTY</p>`;
+    return;
+  }
 
-    items.forEach((item) => {
-      const row = document.createElement("div");
-      row.className ="cartRow"
+  items.forEach((item) => {
+    const row = document.createElement("div");
+    row.className = "cartRow";
 
-      const img = document.createElement("img");
-      img.className ="cartRow__img";
-      img.src = item.product.image;
-     
-        const nameAmount = document.createElement("p");
-        nameAmount.className ="cartRow__nameAmount";
-        nameAmount.textContent = `${item.product.name} x ${item.amount}`
+    const img = document.createElement("img");
+    img.className = "cartRow__img";
+    img.src = item.product.image;
 
-       const total = item.product.price * item.amount;
-      const totalPrice = document.createElement("p");
-      totalPrice.className = "cartRow__price"
+    const nameAmount = document.createElement("p");
+    nameAmount.className = "cartRow__nameAmount";
+    nameAmount.textContent = `${item.product.name} x ${item.amount}`;
 
-      totalPrice.textContent = `${total} SEK`
+    const totalPrice = document.createElement("p");
+    totalPrice.className = "cartRow__price";
+    totalPrice.textContent = `${item.product.price * item.amount} SEK`;
 
-        row.appendChild(img);
-        row.appendChild(nameAmount)
-        row.appendChild(totalPrice)
-        cartPop.appendChild(row)
+    const btnWrap = document.createElement("div");
+    btnWrap.className = "cart-qty";
+
+    const buttonMinus = document.createElement("button");
+    buttonMinus.className = "qty-minus";
+    buttonMinus.type = "button";
+    buttonMinus.textContent = "-";
+
+    const buttonPlus = document.createElement("button");
+    buttonPlus.className = "qty-plus";
+    buttonPlus.type = "button";
+    buttonPlus.textContent = "+";
+
+    // minus item
+    buttonMinus.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      removeOneItemFromCart(String(item.product.id));
+      renderCartPop(cartPop);
     });
-    console.log("LS cart raw:", localStorage.getItem("cart"));
-    console.log("cart parsed:", getCartFromLS());
+
+    // add item
+    buttonPlus.addEventListener("click", async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      await addItemToCart(String(item.product.id));
+      renderCartPop(cartPop);
+    });
+
+    btnWrap.appendChild(buttonMinus);
+    btnWrap.appendChild(buttonPlus);
+
+    row.appendChild(img);
+    row.appendChild(nameAmount);
+    row.appendChild(totalPrice);
+    row.appendChild(btnWrap);
+
+    cartPop.appendChild(row);
+  });
 };
 
+// init cart popup
 export const initCartPop = () => {
-    const cartLink = document.getElementById("cartLink")
-    const cartPop = document.getElementById("cartPop")
-    if(!cartLink || !cartPop) return;
+  const cartLink = document.getElementById("cartLink");
+  const cartPop = document.getElementById("cartPop");
+  if (!cartLink || !cartPop) return;
 
-    const open = () => {
-        renderCartPop(cartPop);
-        cartPop.classList.add("isOpen");
-        cartPop.setAttribute("aria-hidden", "false");
-        console.log("OPEN");
-      };
-    
-      const close = () => {
-        cartPop.classList.remove("isOpen");
-        cartPop.setAttribute("aria-hidden", "true");
-        console.log("CLOSE");
-      };
-    
-      cartLink.addEventListener("mouseenter", open)
-      cartLink.addEventListener("mouseleave", () => {
-        setTimeout(() => {
-          const hoverPop = cartPop.matches(":hover");
-          const hoverLink = cartLink.matches(":hover");
-          if (!hoverPop && !hoverLink) close();
-        }, 80);
-      });
+  const link = cartLink.querySelector("a");
 
-    cartPop.addEventListener("mouseenter", open);
-    cartPop.addEventListener("mouseleave", close);
+  let isOpen = false;
 
-    
-    cartLink.querySelector("a")?.addEventListener("click", (e) => {
-        e.preventDefault();
-        open();
-    })
-};
-
-export const openCartPopAfterAdd = () => {
-    const cartPop = document.getElementById("cartPop");
-    if (!cartPop) return;
-  
+  const open = () => {
     renderCartPop(cartPop);
     cartPop.classList.add("isOpen");
     cartPop.setAttribute("aria-hidden", "false");
+    isOpen = true;
   };
+
+  const close = () => {
+    cartPop.classList.remove("isOpen");
+    cartPop.setAttribute("aria-hidden", "true");
+    isOpen = false;
+  };
+
+  // hover = open only
+  cartLink.addEventListener("mouseenter", () => {
+    if (!isOpen) open();
+  });
+
+  // click icon = toggle
+  link?.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    isOpen ? close() : open();
+  });
+
+  // stop clicks inside popup
+  cartPop.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  // click outside = close
+  document.addEventListener("pointerdown", (e) => {
+    const target = e.target as Node;
+    if (cartPop.contains(target) || cartLink.contains(target)) return;
+    close();
+  });
+
+  // esc = close
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+};
+
+
+// open popup after add to cart
+export const openCartPopAfterAdd = () => {
+  const cartPop = document.getElementById("cartPop");
+  if (!cartPop) return;
+
+  renderCartPop(cartPop);
+  cartPop.classList.add("isOpen");
+  cartPop.setAttribute("aria-hidden", "false");
+};
 

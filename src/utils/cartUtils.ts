@@ -76,11 +76,13 @@ export const addItemToCart = async (id: string) => {
  * add that new cart to localStorage
  */
 export const removeProductFromCart = (id: string, cart: Cart) => {
-  const newCart = cart.items.filter(
+  const newItems = cart.items.filter(
     (item: CartItem) => item.product.id !== parseFloat(id)
   );
 
-  localStorage.setItem("cart", JSON.stringify(newCart));
+  cart.items = newItems;
+
+  localStorage.setItem("cart", JSON.stringify(cart));
 };
 
 //remove one item
@@ -115,5 +117,9 @@ export const updateCart = (cart: Cart) => {
 };
 
 export const clearCart = () => {
-  localStorage.setItem("cart", "[]");
+  let cart: Cart = {
+    items: [],
+  };
+  localStorage.setItem("cart", JSON.stringify(cart));
 };
+

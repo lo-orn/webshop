@@ -5,6 +5,7 @@
 @use "./form";
 @use "./checkoutCart";
 @use "./checkoutConfirmation";
+@use "../cartModal";
 
 main {
   display: grid;
