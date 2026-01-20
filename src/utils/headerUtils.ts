@@ -1,5 +1,7 @@
 import type { Cart } from "../models/Cart";
+import { initPdp } from "../pages/pdp/pdp";
 import { addItemToCart, removeOneItemFromCart } from "./cartUtils";
+import { createCheckoutCart } from "./htmlUtils";
 
 // --- HAMBURGER MENU ---
 const hamburgerButton = document.getElementById("hamburgerButton");
@@ -69,6 +71,7 @@ export const renderCartPop = (cartPop: HTMLElement) => {
       e.stopPropagation();
       removeOneItemFromCart(String(item.product.id));
       renderCartPop(cartPop);
+      updateMainAfterCartPopChange();
     });
 
     // add item
@@ -77,6 +80,7 @@ export const renderCartPop = (cartPop: HTMLElement) => {
       e.stopPropagation();
       await addItemToCart(String(item.product.id));
       renderCartPop(cartPop);
+      updateMainAfterCartPopChange();
     });
 
     btnWrap.appendChild(buttonMinus);
@@ -166,4 +170,15 @@ export const openCartPopAfterAdd = () => {
   renderCartPop(cartPop);
   cartPop.classList.add("isOpen");
   cartPop.setAttribute("aria-hidden", "false");
+};
+
+const updateMainAfterCartPopChange = () => {
+  const path = window.location.pathname;
+  if (path === "/pdp.html") {
+    initPdp();
+  } else if (path === "/checkout.html") {
+    createCheckoutCart();
+  } else if (path === "/cartpage.html") {
+    console.log("updating cartpage");
+  }
 };
