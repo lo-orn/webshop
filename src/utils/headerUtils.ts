@@ -1,5 +1,4 @@
 import type { Cart } from "../models/Cart";
-import { initPdp } from "../pages/pdp/pdp";
 import { addItemToCart, getCart, removeOneItemFromCart } from "./cartUtils";
 import { createCheckoutCart } from "./htmlUtils";
 
@@ -206,7 +205,7 @@ export const openCartPopAfterAdd = () => {
 const updateMainAfterCartPopChange = () => {
   const path = window.location.pathname;
   if (path === "/pdp.html") {
-    initPdp();
+    
     updateHeaderCartAmount();
   } else if (path === "/checkout.html") {
     createCheckoutCart();
