@@ -7,7 +7,10 @@
   letter-spacing: -0.01em;
   color: #2c2825;
 }
-
+#headerLogoText {
+  font-weight: 400;
+  font-size: 30px;
+}
 .headingLink {
   color: #000;
   text-decoration: none;
@@ -105,12 +108,16 @@
 //TABLET
 @media screen and (max-width: 991px) {
   #bannerText {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   .divNav {
-    h1 {
-      font-size: 1.5rem;
+    #headerLogoText {
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+    .logo {
+      font-weight: 800;
     }
   }
   .ulNav {
@@ -172,8 +179,10 @@
 //MOBILE
 @media screen and (max-width: 768px) {
   #bannerText {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
+
+
 
   .container {
     margin-left: 0;
@@ -183,8 +192,8 @@
   .divNav {
     width: 46vw;
 
-    h1 {
-      font-size: 1.1rem;
+   #headerLogoText {
+      font-size: 14px;
     }
   }
 

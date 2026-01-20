@@ -16,6 +16,8 @@ export const makeRightSideSticky = () => {
     if (!rightSide || !main) return;
     
     let isStuck = false;
+    let savedWidth = 0;
+    let savedLeft = 0;
     
     
     window.addEventListener('scroll', () => {
@@ -31,10 +33,12 @@ export const makeRightSideSticky = () => {
             return
         }
       const mainTop = main.getBoundingClientRect().top;
-      const rightRect = rightSide.getBoundingClientRect();
-      const mainBottom =main.getBoundingClientRect().bottom
 
-      if (mainBottom <= rightRect.height + 20) {
+      const mainBottom =main.getBoundingClientRect().bottom
+      const rightHeight = rightSide.offsetHeight;
+
+
+      if (mainBottom <= rightHeight + 20) {
         if (isStuck) {
           isStuck = false;
           rightSide.style.position = '';
@@ -46,12 +50,16 @@ export const makeRightSideSticky = () => {
       }
       
       // If we scrolled past the top
-      if (mainTop <= 20 && mainBottom >rightRect.height + 20 && !isStuck) {
-        isStuck = true;
-        rightSide.style.position = 'fixed';
-        rightSide.style.top = '20px';
-        rightSide.style.left = rightRect.left + 'px';
-        rightSide.style.width = rightRect.width + 'px';
+      if (mainTop <= 20 && mainBottom >rightHeight + 20 && !isStuck) {
+       const rect = rightSide.getBoundingClientRect();
+       savedWidth = rect.width;
+       savedLeft = rect.left;
+
+       isStuck = true;
+       rightSide.style.position = 'fixed';
+       rightSide.style.top = '20px';
+       rightSide.style.left = savedLeft + 'px';
+       rightSide.style.width = savedWidth + 'px';
       }
       
 
@@ -68,13 +76,36 @@ export const makeRightSideSticky = () => {
     
     // Update position on window resize
     window.addEventListener('resize', () => {
-      if (isStuck) {
-        const rightRect = rightSide.getBoundingClientRect();
-        rightSide.style.left = rightRect.left + 'px';
-        rightSide.style.width = rightRect.width + 'px';
+
+      if(window.innerWidth <= 768) {
+          if(isStuck) {
+              rightSide.style.position = "";
+              rightSide.style.top = "";
+              rightSide.style.left = "";
+              rightSide.style.width = "";
+              isStuck = false;
+          }
+          return;
       }
-    });
-  };
+     
+      if (isStuck) {
+         
+          rightSide.style.position = '';
+          rightSide.style.left = '';
+          rightSide.style.width = '';
+          
+         
+          const rect = rightSide.getBoundingClientRect();
+          savedWidth = rect.width;
+          savedLeft = rect.left;
+          
+         
+          rightSide.style.position = 'fixed';
+          rightSide.style.left = savedLeft + 'px';
+          rightSide.style.width = savedWidth + 'px';
+      }
+  });
+}
 
 
    

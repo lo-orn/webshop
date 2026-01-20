@@ -14,12 +14,16 @@ main {
   gap: 20px;
   grid-template-columns: 1fr 320px;
   align-items: start;
+  min-height: 100vh;
 
   .left {
     min-width: 0;
   }
 }
 
+footer {
+  margin-top: auto; 
+}
 //Tablet
 @media screen and (max-width: 991px) {
   main {
