@@ -45,13 +45,19 @@ function createEmptyCartView(): HTMLElement {
 }
 
 function createCartItem(item: CartItem, onChange: () => void): HTMLElement {
-  const cartContainer = document.createElement("div");
+  const cartContainer = document.createElement("section");
   cartContainer.className = "cart-container";
+
+  const imgWrapper = document.createElement("div");
+  imgWrapper.className = "imgWrapper";
 
   const img = document.createElement("img");
   img.className = "cart-container__img";
   img.src = item.product.image;
   img.alt = item.product.name;
+
+  const priceWrapper = document.createElement("div");
+  priceWrapper.className = "priceWrapper";
 
   const productName = document.createElement("p");
   productName.className = "cart-container__p";
@@ -76,9 +82,8 @@ function createCartItem(item: CartItem, onChange: () => void): HTMLElement {
   buttonPlus.className = "qty-plus";
   buttonPlus.textContent = "+";
 
-  const buttonRemove = document.createElement("button");
-  buttonRemove.className = "removeItems";
-  buttonRemove.textContent = "REMOVE";
+  const actionsRow = document.createElement("div");
+  actionsRow.className = "cart-actions";
 
   buttonPlus.addEventListener("click", async () => {
     await addItemToCart(String(item.product.id));
@@ -90,20 +95,49 @@ function createCartItem(item: CartItem, onChange: () => void): HTMLElement {
     onChange();
   });
 
-
+  imgWrapper.appendChild(img);
   qtyWrap.append(buttonMinus, qtyText, buttonPlus);
-  cartContainer.append(img, productName, qtyWrap, productPrice, buttonRemove);
+  priceWrapper.append(productName, productPrice);
+  actionsRow.appendChild(qtyWrap);
+  cartContainer.append(imgWrapper, priceWrapper, actionsRow);
 
   return cartContainer;
 }
 
 function createOrderSummery(cart: Cart): HTMLElement {
-  const wrapperSummery = document.createElement("div");
-  wrapperSummery.className = "div-summery";
+  const wrapperSummery = document.createElement("aside");
+  wrapperSummery.className = "wrapperSummery";
+
+  const summery = document.createElement("div");
+  summery.className = "summery";
 
   const headingSummery = document.createElement("p");
-  headingSummery.className = "div-summery__heading";
+  headingSummery.className = "wrapperSummery__heading";
   headingSummery.textContent = "ORDER SUMMARY";
+
+  const promoSection = document.createElement("div");
+  promoSection.className = "wrapperSummery__promo";
+
+  const promoLable = document.createElement("p");
+  promoLable.className = "wrapperSummery__lable";
+  promoLable.textContent = "PROMO CODE";
+
+  const promoRow = document.createElement("div");
+  promoRow.className = "wrapperSummery__promoRow";
+
+  const promoInput = document.createElement("input");
+  promoInput.className = "wrapperSummery__promoInput";
+  promoInput.type = "text";
+  promoInput.placeholder = "ENTER CODE";
+
+  const promoBtn = document.createElement("button");
+  promoBtn.className = "wrapperSummery__promoBtn";
+  promoBtn.textContent = "SUBMIT";
+
+  // BEHÖVS HANTERAS !!
+  promoBtn.addEventListener("click", () => {
+    console.log("Promo code:",);
+  });
 
   let subtotalSum = 0;
   cart.items.forEach((item) => {
@@ -113,16 +147,53 @@ function createOrderSummery(cart: Cart): HTMLElement {
   const shippingCost = cart.shippingPrice || 0;
   const totalSum = subtotalSum + shippingCost;
 
+  const lines = document.createElement("div");
+  lines.className = "wrapperSummery__lines";
+
   const subTotalText = document.createElement("p");
   subTotalText.textContent = `SUBTOTAL: ${subtotalSum} SEK`;
 
   const shippingText = document.createElement("p");
   shippingText.textContent = `SHIPPING: ${shippingCost} SEK`;
 
+  const totalRowWrap = document.createElement("div");
+  totalRowWrap.className = "wrapperSummery__total";
+
   const totalText = document.createElement("p");
   totalText.textContent = `TOTAL: ${totalSum} SEK`;
 
-  wrapperSummery.append(headingSummery, subTotalText, shippingText, totalText);
+  const actions = document.createElement("div");
+  actions.className = "wrapperSummery__actions";
+
+  const btnContinue = document.createElement("button");
+  btnContinue.className = "wrapperSummery__btnContinue";
+  btnContinue.textContent = "CONTINUE SHOPPING";
+  btnContinue.addEventListener("click", () => {
+   window.location.href = 'index.html';
+  })
+  // Måste kopplas!!
+
+  const btnCheckout = document.createElement("button");
+  btnCheckout.className = "wrapperSummery__btnCheckout";
+  btnCheckout.textContent = "CHECKOUT";
+  btnCheckout.addEventListener("click", () => {
+    window.location.href = 'checkout.html';
+  })
+  
+  // Måste kopplas!!
+
+  summery.append(headingSummery, promoSection)
+  
+  promoRow.append(promoInput, promoBtn);
+  promoSection.append(promoLable, promoRow);
+
+  lines.append(subTotalText, shippingText);
+
+  totalRowWrap.appendChild(totalText);
+
+  actions.append(btnContinue, btnCheckout);
+
+  wrapperSummery.append(summery, lines, totalRowWrap, actions);
   return wrapperSummery;
 }
 
@@ -138,29 +209,40 @@ export const initCartPage = async () => {
   }
 
   const render = () => {
-    console.log("LS cart just nu:", localStorage.getItem("cart"));
+  console.log("LS cart just nu:", localStorage.getItem("cart"));
 
-    const cart = getCartFromLS();
+  const cart = getCartFromLS();
 
-    main.innerHTML = "";
-    const section = createCartSection();
-    main.appendChild(section);
+  main.innerHTML = "";
+  const section = createCartSection();
+  main.appendChild(section);
 
-    if (!cart || cart.items.length === 0) {
-      section.appendChild(createEmptyCartView());
-      return;
-    }
+  if (!cart || cart.items.length === 0) {
+    section.appendChild(createEmptyCartView());
+    return;
+  }
 
-    cart.items.forEach((item) => {
-      section.appendChild(createCartItem(item, render));
-    });
+  const layout = document.createElement("div");
+  layout.className = "cart__layout";
 
-    section.appendChild(createOrderSummery(cart));
-  };
+  const itemsCol = document.createElement("div");
+  itemsCol.className = "cart__items";
+
+  const summaryCol = document.createElement("div");
+  summaryCol.className = "cart__summary";
+
+  cart.items.forEach((item) => {
+    itemsCol.appendChild(createCartItem(item, render));
+  });
+
+  summaryCol.appendChild(createOrderSummery(cart));
+
+  layout.append(itemsCol, summaryCol);
+
+  section.appendChild(layout);
+};
 
   render();
 };
 
-
 initCartPage();
-
