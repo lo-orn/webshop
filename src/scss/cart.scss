@@ -177,6 +177,13 @@
   background-color: white;
   border: 3px solid black;
   cursor: pointer;
+
+  &:hover {
+    background-color: #002fa7;
+    border: 3px solid #002fa7;
+    color: white;
+    cursor: pointer;
+  }
 }
 
 .cart-actions {
@@ -195,23 +202,33 @@
   border: 3px solid black;
   padding: 18px;
   background: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.summery {
+  width: 335px;
+  align-self: center;
+  margin: 20px 0;
+  padding-bottom: 18px;
 }
 
 .wrapperSummery__heading {
   margin: 0;
   text-align: center;
-  font-weight: 800;
-  letter-spacing: 0.5px;
+  font-size: 24px;
+  line-height: 140%;
+  font-weight: 400;
+  letter-spacing: -1%;
 }
 
 .wrapperSummery__promo {
-  border-top: 2px solid black;
-  margin-top: 14px;
+  margin-top: 20px;
   padding-top: 14px;
 }
 
 .wrapperSummery__lable {
-  margin: 0 0 10px;
+  margin: 0 0 5px;
   font-size: 12px;
   letter-spacing: 0.4px;
 }
@@ -225,29 +242,43 @@
 .wrapperSummery__promoInput {
   height: 34px;
   border: 2px solid black;
-  padding: 0 10px;
+  //padding: 0 0px;
 }
 
 .wrapperSummery__promoBtn {
   height: 34px;
-  border: 2px solid black;
-  background: white;
+  background-color: white;
+  border: 3px solid black;
   cursor: pointer;
+
+  &:hover {
+    background-color: #002fa7;
+    border: 3px solid #002fa7;
+    color: white;
+    cursor: pointer;
+  }
 }
 
 .wrapperSummery__lines {
-  border: 2px solid black;
-  margin-top: 14px;
-  padding-top: 14px;
+  border-top: 2px solid black;
+  padding-top: 20px;
+  padding-bottom: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+}
+
+.wrapperSummery__lines p {
+  margin: 5px;
 }
 
 .wrapperSummery__total {
-  border: 2px solid black;
-  margin-top: 14px;
-  padding-top: 14px;
+  border-top: 2px solid black;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.wrapperSummery__total p {
+  margin: 0px;
 }
 
 .wrapperSummery__actions {
@@ -260,9 +291,16 @@
 .wrapperSummery__btnContinue,
 .wrapperSummery__btnCheckout {
   height: 36px;
-  border: 2px solid black;
-  background: white;
+  border: 3px solid black;
+  background-color: white;
   cursor: pointer;
+
+  &:hover {
+    background-color: #002fa7;
+    border: 3px solid #002fa7;
+    color: white;
+    cursor: pointer;
+  }
 }
 
 // Responsive design

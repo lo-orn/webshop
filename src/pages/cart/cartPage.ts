@@ -88,6 +88,7 @@ function createCartItem(item: CartItem, onChange: () => void): HTMLElement {
   const buttonRemove = document.createElement("button");
   buttonRemove.className = "removeItems";
   buttonRemove.textContent = "REMOVE";
+  // Måste fixa koppling!!
 
   const actionsRow = document.createElement("div");
   actionsRow.className = "cart-actions";
@@ -176,10 +177,12 @@ function createOrderSummery(cart: Cart): HTMLElement {
   const btnContinue = document.createElement("button");
   btnContinue.className = "wrapperSummery__btnContinue";
   btnContinue.textContent = "CONTINUE SHOPPING";
+  // Måste kopplas!!
 
   const btnCheckout = document.createElement("button");
   btnCheckout.className = "wrapperSummery__btnCheckout";
   btnCheckout.textContent = "CHECKOUT";
+  // Måste kopplas!!
 
   summery.append(headingSummery, promoSection)
   
