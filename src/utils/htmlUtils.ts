@@ -278,10 +278,19 @@ const createEmptyCartMessage = () => {
   section.innerHTML = "";
   section.classList.add("emptyCartMessage");
   const message = document.createElement("p");
+  message.className ="priceCountMessage"
   message.innerHTML =
     "Your cart seems to be empty. Go back and add some of your favourites!";
+  
+  const button = document.createElement("button")
+  button.className="priceCountBtn"
+  button.innerHTML = "GO BACK"
+  button.addEventListener("click", () => {
+    window.location.href = "index.html"
+  })
 
   section?.appendChild(message);
+  section.append(button)
 };
 
 export const createAllCategories = async () => {
