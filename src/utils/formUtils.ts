@@ -59,8 +59,6 @@ const handleCheckoutForm = (e: Event) => {
 
   if (regexResultsValid && nonRegexResultsValid) {
     completeCheckout();
-  } else {
-    console.log("some input field is not valid");
   }
 };
 

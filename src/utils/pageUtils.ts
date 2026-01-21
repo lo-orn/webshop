@@ -18,7 +18,5 @@ export const getLastClickedProduct = () => {
   if (lastClickedProductString) {
     const product: Product = JSON.parse(lastClickedProductString);
     return product;
-  } else {
-    console.log("No lastProduct found in localStorage");
   }
 };

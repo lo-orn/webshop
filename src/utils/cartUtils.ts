@@ -92,8 +92,6 @@ export const removeOneItemFromCart = (id: string) => {
       item.amount -= 1;
 
       item.amount < 1 ? cart.items.splice(index, 1) : null;
-    } else {
-      console.log("couldn't find the product in the cart :(");
     }
   });
 

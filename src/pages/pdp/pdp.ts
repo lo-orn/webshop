@@ -45,7 +45,7 @@ export const initPdp = () => {
   // hämta produkt från localStorage
   const product = getLastClickedProduct();
   if (!product) {
-    console.log("STOP: no product in localStorage");
+    console.error("No product in localStorage");
     return;
   }
 

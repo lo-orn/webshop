@@ -216,8 +216,6 @@ export const initCartPage = async () => {
   }
 
   const render = () => {
-    console.log("LS cart just nu:", localStorage.getItem("cart"));
-
     const cart = getCart();
 
     main.innerHTML = "";
