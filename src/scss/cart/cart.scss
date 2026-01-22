@@ -112,19 +112,19 @@
   margin: 0;
   text-transform: uppercase;
   font-size: vars.$font-size-h2;
-  font-weight: vars.$font-weight-bold;
-  line-height: 1.2;
+  font-weight: vars.$font-weight-regular;
+  line-height: vars.$line-height-tight;
   letter-spacing: -1;
 }
 
 .cart-container__price {
   margin: 0;
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: vars.$font-weight-bold;
+  font-size: vars.$font-size-base;
 }
 
 .cart-container__qtyWrap {
-  border: 3px solid black;
+  border: vars.$border-width-large solid vars.$color-black;
   width: 210px;
   height: 40px;
   display: flex;
@@ -138,20 +138,20 @@
   border: none;
   width: 50px;
   height: 100%;
-  font-weight: bold;
+  font-weight: vars.$font-weight-bold;
   cursor: pointer;
 }
 
 .qty-minus {
-  border-right: 2px solid black;
+  border-right: vars.$border-width solid vars.$color-black;
 }
 
 .qty-plus {
-  border-left: 2px solid black;
+  border-left: vars.$border-width solid vars.$color-black;
 }
 
 .qty {
-  font-weight: 600;
+  font-weight: vars.$font-weight-bold;
 }
 
 .btnRemoveWrapper {
@@ -162,14 +162,14 @@
 .removeItems {
   width: 210px;
   height: 40px;
-  background-color: white;
-  border: 3px solid black;
+  background-color: vars.$color-white;
+  border: vars.$border-width-large solid vars.$color-black;
   cursor: pointer;
 
   &:hover {
-    background-color: #002fa7;
-    border: 3px solid #002fa7;
-    color: white;
+    background-color: vars.$color-primary;
+    border: vars.$border-width-large solid vars.$color-primary;
+    color: vars.$color-white;
     cursor: pointer;
   }
 }
@@ -179,7 +179,7 @@
   grid-row: 2;
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: vars.$spacing-xl;
   align-self: end;
 }
 
@@ -187,8 +187,8 @@
 
 .wrapperSummery {
   width: 100%;
-  border: 3px solid black;
-  background: white;
+  border:vars.$border-width-large solid vars.$color-black;
+  background: vars.$color-white;
   display: flex;
   flex-direction: column;
 }
@@ -201,13 +201,13 @@
 // }
 
 .summeryRow {
-  padding: 1rem;
+  padding: vars.$spacing-md;
 }
 
 .wrapperSummery__heading {
   text-align: center;
-  font-size: 24px;
-  font-weight: 400;
+  font-size: vars.$font-size-h2;
+  font-weight: vars.$font-weight-regular;
 }
 
 // .wrapperSummery__promo {
@@ -237,9 +237,9 @@
 }
 
 .wrapperSummery__lines {
-  border-top: 2px solid black;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  border-top: vars.$border-width solid vars.$color-black;
+  padding-top: vars.$spacing-lg;
+  padding-bottom: vars.$spacing-lg;
   display: flex;
   flex-direction: column;
 }
@@ -291,8 +291,8 @@
 .wrapperSummery__promoInput {
   flex: 1;
   padding: 0.5rem;
-  border: 1px solid #000;
-  font-size: 14px;
+  border: vars.$border-width-xs solid vars.$color-black;
+  font-size: vars.$font-size-small;
 }
 
 // .wrapperSummery__promoBtn {
@@ -317,7 +317,7 @@
   // Cart item
   .cart__layout {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: vars.$spacing-xl;
     width: 100%;
   }
 
@@ -329,13 +329,13 @@
   // }
 
   .cart-container__p {
-    font-size: 20px;
+    font-size: vars.$font-size-large;
   }
 
   .cart-container__qtyWrap {
     width: 100%;
     max-width: 210px;
-    border-width: 2px;
+    border-width: vars.$border-width;
   }
 
   .qty-minus,
@@ -371,7 +371,7 @@
 @media screen and (max-width: 768px) {
   .cart__layout {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: vars.$spacing-lg;
   }
 
   .cart__summary {
@@ -385,20 +385,21 @@
   }
 
   .cart__title {
-    font-size: 40px;
+    font-size: vars.$font-size-h1;
     margin: 18px 0 20px;
     text-align: left;
   }
 
   .cart-container {
-    padding: 14px;
-    border: 3px solid black;
+    padding: vars.$spacing-md;
+    border: vars.$border-width-large solid vars.$color-black;
     display: grid;
     grid-template-columns: 56px 1fr;
     grid-template-rows: auto auto;
-    column-gap: 12px;
-    row-gap: 8px;
+    column-gap: vars.$spacing-sm;
+    row-gap: vars.$spacing-sm;
     align-items: center;
+
   }
 
   .imgWrapper {
@@ -406,7 +407,7 @@
     grid-row: 1 / span 2;
     width: 56px;
     height: 56px;
-    border: 3px solid black;
+    border: vars.$border-width solid vars.$color-black;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -423,16 +424,17 @@
     grid-column: 2;
     grid-row: 1;
     max-width: none;
-    gap: 4px;
+    gap: vars.$spacing-xs;
   }
 
   .cart-container__p {
-    font-size: 10px;
+    font-size: vars.$font-size-small;
     letter-spacing: 0;
-    line-height: 1.2;
+    line-height: vars.$line-height-tight;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-weight: vars.$font-weight-medium;
   }
 
   .cart-container__price {
@@ -445,25 +447,25 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 12px;
+    gap: vars.$spacing-sm;
   }
 
   .cart-container__qtyWrap {
     width: min(150px, 100%);
     height: 24px;
-    border-width: 2px;
+    border-width: vars.$border-width;
   }
 
   .qty-minus,
   .qty-plus {
     width: 38px;
-    font-size: 14px;
+    font-size: vars.$font-size-small;
     font-weight: normal;
   }
 
   .qty {
-    font-weight: 400;
-    font-size: 14px;
+    font-weight: vars.$font-weight-regular;
+    font-size: vars.$font-size-small;
     font-weight: normal;
   }
 
@@ -472,7 +474,7 @@
   }
 
   .cart-empty__text {
-    font-size: 20px;
+    font-size: vars.$font-size-large
   }
 
   .wrapperSummery__promoBtn {
