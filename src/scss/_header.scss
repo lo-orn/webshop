@@ -45,6 +45,10 @@
   font-size: vars.$font-size-base;
   font-weight: vars.$font-weight-regular;
   letter-spacing: 0;
+
+  &:hover{
+    font-weight: vars.$font-weight-bold;
+  }
 }
 
 .ulNav img {
@@ -79,6 +83,7 @@
   font-size: 48px;
   font-weight: vars.$font-weight-regular;
   margin: 0;
+
 }
 
 .container > .divNav:first-child {
