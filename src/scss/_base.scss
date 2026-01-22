@@ -1,10 +1,12 @@
-:root {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@use "variables" as vars;
 
-  color: black;
-  background: white;
+:root {
+  font-family: vars.$font-family-base;
+  line-height: vars.$line-height-base;
+  font-weight: vars.$font-weight-regular;
+
+  color: vars.$color-black;
+  background: vars.$color-white;
 }
 
 
@@ -12,6 +14,8 @@
 {
   box-sizing: border-box;
 }
+
+
 body {
   margin: 0;
 }
@@ -19,14 +23,21 @@ body {
 header, main {
   max-width: 1200px;
   margin: 0 auto;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: vars.$spacing-lg;
+  padding-bottom: vars.$spacing-lg;
 
 }
 
 @media (max-width: 1200px) {
-  header, main {
-    padding-left: 16px;
-    padding-right: 16px;
+  header, main, footer {
+    padding-left: vars.$spacing-md;
+    padding-right: vars.$spacing-md;
   }
+
+  .container {
+    padding-left: vars.$spacing-md;
+    padding-right: vars.$spacing-md;
+  }
+
+
 }

@@ -1,3 +1,6 @@
+@use "../variables" as vars;
+@use "../components/button" as btn;
+
 #shippingInfoForm,
 #shippingMethodForm,
 #paymentInfoForm {
@@ -6,43 +9,58 @@
   gap: 20px;
 }
 
+.emptyCartMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: vars.$spacing-sm;
+
+  .priceCountMessage {
+    text-align: center;
+  }
+  .priceCountBtn {
+    @include btn.button-base;
+    @include btn.button-size("medium");
+  }
+}
+
 .checkout-card {
-  border: 3px solid black;
-  padding: 30px;
-  background: white;
+  border: vars.$border-width-large solid vars.$color-black;
+  padding: vars.$spacing-xl;
+  background: vars.$color-white;
 }
 
 .checkout-card + .checkout-card {
-  margin-top: 20px;
+  margin-top: vars.$spacing-lg;
 }
 
 #shippingMethodSection {
-  border: 3px solid black;
-  padding: 30px;
-  background: white;
-  margin-bottom: 20px;
+  border: vars.$border-width-large solid vars.$color-black;
+  padding: vars.$spacing-xl;
+  background: vars.$color-white;
+  margin-bottom: vars.$spacing-lg;
 }
 
 h3 {
-  margin: 0 0 20px;
-  font-size: 16px;
+  margin: 0 0 vars.$spacing-lg;
+  font-size: vars.$font-size-base;
   letter-spacing: 0.04em;
-  font-weight: 700;
+  font-weight: vars.$font-weight-bold;
 }
 
-form {
+#checkoutForm {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: vars.$spacing-lg;
 
   .formColumn {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: vars.$spacing-sm;
 
     label {
-      font-size: 12px;
-      font-weight: 700;
+      font-size: vars.$font-size-xs;
+      font-weight: vars.$font-weight-bold;
       letter-spacing: 0.03em;
     }
 
@@ -57,25 +75,31 @@ form {
 
 .inlineContainer {
   display: flex;
-  gap: 20px;
+  gap: vars.$spacing-lg;
 }
 
 .inlineContainer > .formColumn {
   flex: 1;
 }
 
-.btn {
-  border: 2px solid black;
+// Shipping method buttons
+.btn-shipping {
+  border: vars.$border-width solid vars.$color-black;
   height: 56px;
   padding: 0 16px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: vars.$spacing-sm;
   width: 320px;
   max-width: 100%;
   user-select: none;
+  background: vars.$color-white;
+  transition: all 0.2s ease;
+  cursor: pointer;
 
-  &:hover {
+  input[type="radio"] {
+    width: 20px;
+    height: 20px;
     cursor: pointer;
   }
 
@@ -88,42 +112,74 @@ form {
 
   p {
     margin: 0;
-    line-height: 1.1;
+    line-height: vars.$line-height-tight;
   }
 
   .btnHeading {
-    font-size: 16px;
-    font-weight: 700;
+    font-size: vars.$font-size-base;
+    font-weight: vars.$font-weight-bold;
   }
 
   .btnInfo {
-    font-size: 12px;
+    font-size: vars.$font-size-xs;
+  }
+}
+
+.btn-shipping.chosen {
+  background: vars.$color-black;
+  color: vars.$color-white;
+}
+
+// Payment Info Section
+.btn-payment {
+  border: vars.$border-width solid vars.$color-black;
+  height: 56px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  width: 320px;
+  max-width: 100%;
+  background: black;
+  color: vars.$color-white;
+  cursor: pointer;
+
+  .btnHeading {
+    font-size: vars.$font-size-base;
+    font-weight: vars.$font-weight-bold;
   }
 }
 
 // Payment Info Section
 
 #btnCreditCard {
-  background: black;
-  color: white;
+  background: vars.$color-black;
+  color: vars.$color-white;
 }
+form {
+  .billingColumn {
+    flex-direction: row;
+  }
+}
+
 #billingAddress {
   align-self: flex-start;
+  height: 10px;
 }
 
 .badInput {
-  border: 1px solid red !important;
+  border: 1px solid vars.$color-error !important;
 }
 
 .errorMessage {
-  color: red;
+  color: vars.$color-error;
   margin-top: 0.2rem;
 }
 
 //Tablet
 @media screen and (max-width: 991px) {
   .inlineContainer {
-    gap: 12px;
+    flex-direction: column;
+    gap: vars.$spacing-xs;
   }
 }
 
@@ -131,18 +187,16 @@ form {
 @media screen and (max-width: 768px) {
   #checkoutForm {
     width: 100%;
-    align-items: center;
+    align-items: stretch;
+  }
 
-    section {
-      width: 95%;
+  .emptyCartMessage {
+    .priceCountMessage {
+      text-align: center;
     }
-  }
-
-  .checkout-card {
-    width: 95%;
-  }
-
-  .inlineContainer {
-    flex-direction: column;
+    .priceCountBtn {
+      width: 100%;
+      height: 40px;
+    }
   }
 }

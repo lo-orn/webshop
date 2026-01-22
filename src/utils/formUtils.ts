@@ -7,7 +7,7 @@ const handleCheckoutForm = (e: Event) => {
   e.preventDefault();
 
   const firstNameInput = document.getElementById(
-    "firstName"
+    "firstName",
   ) as HTMLInputElement;
   const lastNameInput = document.getElementById("lastName") as HTMLInputElement;
   const emailInput = document.getElementById("email") as HTMLInputElement;
@@ -18,13 +18,13 @@ const handleCheckoutForm = (e: Event) => {
   const zipCodeInput = document.getElementById("zipCode") as HTMLInputElement;
   const countryInput = document.getElementById("country") as HTMLInputElement;
   const cardNumberInput = document.getElementById(
-    "cardNumber"
+    "cardNumber",
   ) as HTMLInputElement;
   const cardHolderInput = document.getElementById(
-    "cardHolder"
+    "cardHolder",
   ) as HTMLInputElement;
   const expDateInput = document.getElementById(
-    "expiryDate"
+    "expiryDate",
   ) as HTMLInputElement;
   const cvvInput = document.getElementById("cvvCode") as HTMLInputElement;
 
@@ -48,19 +48,17 @@ const handleCheckoutForm = (e: Event) => {
   ];
 
   const regexResults = regexInputs.map((input) =>
-    validateInputWithRegex(input)
+    validateInputWithRegex(input),
   );
   const regexResultsValid = regexResults.every((result) => result === true);
 
   const nonRegexResults = nonRegexInputs.map((input) => validateInput(input));
   const nonRegexResultsValid = nonRegexResults.every(
-    (result) => result === true
+    (result) => result === true,
   );
 
   if (regexResultsValid && nonRegexResultsValid) {
     completeCheckout();
-  } else {
-    console.log("some input field is not valid");
   }
 };
 
@@ -100,16 +98,44 @@ export const validateInput = (element: HTMLInputElement) => {
 };
 
 export const createErrorMsg = (element: HTMLInputElement) => {
+  element.setAttribute("aria-invalid", "true");
+  element.setAttribute(
+    "aria-errormessage",
+    element.getAttribute("aria-errorId") || "errorId",
+  );
+
   let parent = element.parentElement;
   const errMsg = document.createElement("p");
   errMsg.innerText = "Please enter a valid input";
   errMsg.classList.add("errorMessage");
+  errMsg.id = element.getAttribute("aria-errorId") || "errorId";
   parent?.appendChild(errMsg);
   element.classList.add("badInput");
 
   setTimeout(() => {
-    //detta kanske istället skulle försvinna om change i formulär-inputen
+    element.removeAttribute("aria-invalid");
+    element.removeAttribute("aria-errormessage");
     errMsg.remove();
     element.classList.remove("badInput");
   }, 4500);
+};
+
+/*  add eventlistener that when focues, remove the error class (a red border) 
+    and remove all elements with the class errorMessage
+*/
+const inputs = document.getElementsByTagName("input");
+for (let input of inputs) {
+  input.addEventListener("focus", () => {
+    for (let i of inputs) {
+      i.classList.remove("badInput");
+      removeErrorMessage();
+    }
+  });
+}
+
+const removeErrorMessage = () => {
+  const errorMessages = document.getElementsByClassName("errorMessage");
+  for (let msg of errorMessages) {
+    msg.remove();
+  }
 };

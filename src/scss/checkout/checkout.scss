@@ -1,39 +1,41 @@
 @use "../base";
 @use "../header";
 @use "../footer";
-@use "../landingPage";
+@use "../landingpage/landingPage";
 @use "./form";
 @use "./checkoutCart";
 @use "./checkoutConfirmation";
-@use "../cartModal";
+@use "../cartModal/cartModal";
 @use "./checkoutAnimation";
+@use "../promo";
+@use "../variables" as vars;
 
 main {
   display: grid;
-  gap: 20px;
+  gap: vars.$spacing-lg;
   grid-template-columns: 1fr 320px;
   align-items: start;
+  min-height: 100vh;
 
   .left {
     min-width: 0;
   }
-
-  .right {
-    position: sticky;
-    top: 20px;
-  }
 }
 
+footer {
+  margin-top: auto;
+}
 //Tablet
 @media screen and (max-width: 991px) {
   main {
-    padding: 1rem;
+    padding: vars.$spacing-md;
   }
 }
 
 //Mobile
 @media screen and (max-width: 768px) {
   main {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;

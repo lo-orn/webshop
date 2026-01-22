@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -19,26 +19,47 @@
       </div>
       <div class="container">
         <div class="divNav" id="left-container">
-          <i class="fa-sharp fa-solid fa-bars" id="hamburgerButton"></i>
-          <h1>THE <span id="logo">ICONIC</span> SERIES</h1>
+          <i
+            class="fa-sharp fa-solid fa-bars"
+            id="hamburgerButton"
+            role="button"
+            aria-label="Open Menu"
+          ></i>
+          <a href="index.html" class="headingLink">
+            <h2 id="headerLogoText">
+              THE <span id="logo">ICONIC</span> SERIES
+            </h2>
+          </a>
         </div>
 
         <nav class="divNav">
           <ul class="nav ulNav">
-            <li><a href="">NEW DROPS</a></li>
-            <li><a href="#category-section">CATEGORIES</a></li>
-            <li><a href="">ABOUT</a></li>
+            <li><a href="newdrops.html">NEW DROPS</a></li>
+            <li><a href="index.html#category-section">CATEGORIES</a></li>
+            <li><a href="index.html#footer">ABOUT</a></li>
             <li id="cartLink" class="cartHover">
-              <a href=""><i class="fa-sharp fa-solid fa-cart-shopping"></i></a>
+              <a href="">
+                <i
+                  class="fa-sharp fa-solid fa-cart-shopping"
+                  role="button"
+                  aria-label="Go to cart"
+                ></i>
+                <span
+                  id="cartAmount"
+                  class="headerHidden"
+                  aria-label="Amount of items in cart"
+                  >0</span
+                >
+              </a>
             </li>
           </ul>
         </nav>
 
         <nav class="headerHidden" id="hamburgerMenu">
           <ul>
-            <li><a href="">NEW DROPS</a></li>
+            <li><a href="newdrops.html">NEW DROPS</a></li>
             <li><a href="#category-section">CATEGORIES</a></li>
-            <li><a href="">ABOUT</a></li>
+            <li><a href="#footer">ABOUT</a></li>
           </ul>
         </nav>
 
@@ -58,7 +79,7 @@
             <button class="btn">SHOP ALL FIGURES</button>
           </a>
           <a href="#">
-            <button class="btn">NEW DROPS</button>
+            <button class="btn" id="newDropsBtn">NEW DROPS</button>
           </a>
         </div>
       </section>
@@ -80,7 +101,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="footer">
+    <footer class="footer" id="footer">
       <!-- Newsletter -->
       <section class="footer-newsletter">
         <h3>JOIN THE RADICAL GROUP</h3>
@@ -153,8 +174,12 @@
         <div class="footer-column">
           <h4>CONNECT</h4>
           <div class="social-icons">
-            <a href="" class="footer-links__link">FB</a>
-            <a href="" class="footer-links__link">IG</a>
+            <a href="" class="footer-links__link">
+              <i class="fa-brands fa-square-facebook"></i>
+            </a>
+            <a href="" class="footer-links__link">
+              <i class="fa-brands fa-square-instagram"></i>
+            </a>
           </div>
         </div>
       </section>

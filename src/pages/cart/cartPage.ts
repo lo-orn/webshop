@@ -1,13 +1,20 @@
 import type { Cart } from "../../models/Cart";
 import type { CartItem } from "../../models/CartItem";
-import { addItemToCart, findCart, removeOneItemFromCart } from "../../utils/cartUtils";
-import "..//../scss/cart.scss";
+import {
+  addItemToCart,
+  findCart,
+  getCart,
+  removeOneItemFromCart,
+} from "../../utils/cartUtils";
+import { initCartPop, updateHeaderCartAmount } from "../../utils/headerUtils";
+import "../../scss/cart/cart.scss";
+import { createPromoErrorMsg } from "../../utils/promoUtils";
 
-export const getCartFromLS = (): Cart | null => {
-  const cartString = localStorage.getItem("cart");
-  if (!cartString) return null;
-  return JSON.parse(cartString);
-};
+// export const getCartFromLS = (): Cart | null => {
+//   const cartString = localStorage.getItem("cart");
+//   if (!cartString) return null;
+//   return JSON.parse(cartString);
+// };
 
 function createCartSection(): HTMLElement {
   const section = document.createElement("section");
@@ -21,7 +28,7 @@ function createCartSection(): HTMLElement {
   return section;
 }
 
-function createEmptyCartView(): HTMLElement {
+export function createEmptyCartView(message: string): HTMLElement {
   const wrapper = document.createElement("div");
   wrapper.className = "cart-empty";
 
@@ -30,7 +37,7 @@ function createEmptyCartView(): HTMLElement {
 
   const text = document.createElement("p");
   text.className = "cart-empty__text";
-  text.textContent = "YOUR CART IS EMPTY";
+  text.textContent = message;
 
   const btn = document.createElement("button");
   btn.className = "btn";
@@ -45,13 +52,19 @@ function createEmptyCartView(): HTMLElement {
 }
 
 function createCartItem(item: CartItem, onChange: () => void): HTMLElement {
-  const cartContainer = document.createElement("div");
+  const cartContainer = document.createElement("section");
   cartContainer.className = "cart-container";
+
+  const imgWrapper = document.createElement("div");
+  imgWrapper.className = "imgWrapper";
 
   const img = document.createElement("img");
   img.className = "cart-container__img";
   img.src = item.product.image;
   img.alt = item.product.name;
+
+  const priceWrapper = document.createElement("div");
+  priceWrapper.className = "priceWrapper";
 
   const productName = document.createElement("p");
   productName.className = "cart-container__p";
@@ -62,7 +75,7 @@ function createCartItem(item: CartItem, onChange: () => void): HTMLElement {
   productPrice.textContent = `${item.product.price} SEK`;
 
   const qtyWrap = document.createElement("div");
-  qtyWrap.className = "cart-qty";
+  qtyWrap.className = "cart-container__qtyWrap";
 
   const qtyText = document.createElement("span");
   qtyText.className = "qty";
@@ -76,60 +89,159 @@ function createCartItem(item: CartItem, onChange: () => void): HTMLElement {
   buttonPlus.className = "qty-plus";
   buttonPlus.textContent = "+";
 
-  const buttonRemove = document.createElement("button");
-  buttonRemove.className = "removeItems";
-  buttonRemove.textContent = "REMOVE";
+  const actionsRow = document.createElement("div");
+  actionsRow.className = "cart-actions";
 
   buttonPlus.addEventListener("click", async () => {
     await addItemToCart(String(item.product.id));
     onChange();
+    updateHeaderCartAmount();
   });
 
   buttonMinus.addEventListener("click", () => {
     removeOneItemFromCart(String(item.product.id));
     onChange();
+    updateHeaderCartAmount();
   });
 
-
+  imgWrapper.appendChild(img);
   qtyWrap.append(buttonMinus, qtyText, buttonPlus);
-  cartContainer.append(img, productName, qtyWrap, productPrice, buttonRemove);
+  priceWrapper.append(productName, productPrice);
+  actionsRow.appendChild(qtyWrap);
+  cartContainer.append(imgWrapper, priceWrapper, actionsRow);
 
   return cartContainer;
 }
 
 function createOrderSummery(cart: Cart): HTMLElement {
-  const wrapperSummery = document.createElement("div");
-  wrapperSummery.className = "div-summery";
+  const wrapperSummery = document.createElement("aside");
+  wrapperSummery.className = "wrapperSummery";
 
-  const headingSummery = document.createElement("p");
-  headingSummery.className = "div-summery__heading";
+  /* ===== HEADING ===== */
+  const headingSummery = document.createElement("h3");
+  headingSummery.className = "wrapperSummery__heading";
   headingSummery.textContent = "ORDER SUMMARY";
 
-  let subtotalSum = 0;
-  cart.items.forEach((item) => {
-  subtotalSum += item.product.price * item.amount;
-  });
+  /* ===== CALCULATIONS ===== */
+  const subtotal = cart.items.reduce(
+    (sum, item) => sum + item.product.price * item.amount,
+    0,
+  );
 
-  const shippingCost = cart.shippingPrice || 0;
-  const totalSum = subtotalSum + shippingCost;
+  const shipping = cart.shippingPrice || 0;
+
+  let cartDiscount: number = 0;
+  if (cart.cartDiscount) {
+    cartDiscount = cart.cartDiscount;
+  }
+
+  /* ===== PROMO UI ===== */
+  const promoSection = document.createElement("div");
+  promoSection.className = "wrapperSummery__promo summeryRow";
+
+  const promoLabel = document.createElement("p");
+  promoLabel.className = "wrapperSummery__lable";
+  promoLabel.textContent = "PROMO CODE";
+
+  const promoRow = document.createElement("div");
+  promoRow.className = "wrapperSummery__promoRow";
+
+  const promoInput = document.createElement("input");
+  promoInput.className = "wrapperSummery__promoInput";
+  promoInput.placeholder = "ENTER CODE";
+
+  const promoBtn = document.createElement("button");
+  promoBtn.className = "wrapperSummery__promoBtn";
+  promoBtn.textContent = "SUBMIT";
+
+  const discountText = document.createElement("p");
+  discountText.id = "discountText";
+  discountText.style.display = cartDiscount > 0 ? "block" : "none";
+
+  discountText.textContent =
+    cartDiscount > 0
+      ? `DISCOUNT (SEBASTIAN): -${Math.round(subtotal * (cartDiscount / 100))} SEK`
+      : "";
+
+  /* ===== PRICE ROWS ===== */
+  const priceContainer = document.createElement("div");
+  priceContainer.className = "wrapperSummery__lines summeryRow";
+
+  const totalPriceContainer = document.createElement("div");
+  totalPriceContainer.className = "wrapperSummery__lines summeryRow";
 
   const subTotalText = document.createElement("p");
-  subTotalText.textContent = `SUBTOTAL: ${subtotalSum} SEK`;
+  subTotalText.textContent = `SUBTOTAL: ${subtotal} SEK`;
 
   const shippingText = document.createElement("p");
-  shippingText.textContent = `SHIPPING: ${shippingCost} SEK`;
+  shippingText.textContent = `SHIPPING: ${shipping} SEK`;
 
+  // let cartDiscountSEK = Math.round(subtotal * 0.2);
   const totalText = document.createElement("p");
-  totalText.textContent = `TOTAL: ${totalSum} SEK`;
 
-  wrapperSummery.append(headingSummery, subTotalText, shippingText, totalText);
+  let cartDiscountSEK = Math.round(
+    (subtotal + shipping) * (cartDiscount / 100),
+  );
+  totalText.textContent =
+    cartDiscount > 0
+      ? `TOTAL: ${subtotal + shipping - cartDiscountSEK} SEK`
+      : `TOTAL: ${subtotal + shipping} SEK`;
+
+  priceContainer.append(subTotalText, shippingText);
+  totalPriceContainer.append(totalText);
+
+  /* ===== PROMO LOGIC ===== */
+  promoBtn.addEventListener("click", () => {
+    const code = promoInput.value.trim().toUpperCase();
+
+    if (code === "SEBASTIAN") {
+      cartDiscount = Math.round(subtotal * 0.2);
+      if (document.getElementById("discountText")?.innerText !== "") {
+        const errorMsg = createPromoErrorMsg("other");
+        promoSection.appendChild(errorMsg);
+        setTimeout(() => {
+          errorMsg.remove();
+        }, 3000);
+      } else {
+        discountText.textContent = `DISCOUNT (SEBASTIAN): -${cartDiscount} SEK`;
+        discountText.style.display = "block";
+        totalText.textContent = `TOTAL: ${subtotal + shipping - cartDiscount} SEK`;
+
+        cart.cartDiscount = 20;
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
+    } else {
+      const errorMsg = createPromoErrorMsg("invalid");
+      promoSection.appendChild(errorMsg);
+      setTimeout(() => {
+        errorMsg.remove();
+      }, 3000);
+    }
+  });
+
+  /* ===== BUILD DOM ===== */
+  promoRow.append(promoInput, promoBtn);
+  promoSection.append(promoLabel, promoRow, discountText);
+
+  wrapperSummery.append(
+    headingSummery,
+    promoSection,
+    priceContainer,
+    totalPriceContainer,
+  );
+
   return wrapperSummery;
 }
 
 // Init
 export const initCartPage = async () => {
-  
-  await Promise.resolve(findCart());
+  if (typeof updateHeaderCartAmount === "function") {
+    updateHeaderCartAmount();
+  }
+
+  initCartPop();
+
+  findCart();
 
   const main = document.getElementById("main");
   if (!main) {
@@ -138,29 +250,38 @@ export const initCartPage = async () => {
   }
 
   const render = () => {
-    console.log("LS cart just nu:", localStorage.getItem("cart"));
-
-    const cart = getCartFromLS();
+    const cart = getCart();
 
     main.innerHTML = "";
     const section = createCartSection();
     main.appendChild(section);
 
     if (!cart || cart.items.length === 0) {
-      section.appendChild(createEmptyCartView());
+      section.appendChild(createEmptyCartView("YOUR CART IS EMPTY"));
       return;
     }
 
+    const layout = document.createElement("div");
+    layout.className = "cart__layout";
+
+    const itemsCol = document.createElement("div");
+    itemsCol.className = "cart__items";
+
+    const summaryCol = document.createElement("div");
+    summaryCol.className = "cart__summary";
+
     cart.items.forEach((item) => {
-      section.appendChild(createCartItem(item, render));
+      itemsCol.appendChild(createCartItem(item, render));
     });
 
-    section.appendChild(createOrderSummery(cart));
+    summaryCol.appendChild(createOrderSummery(cart));
+
+    layout.append(itemsCol, summaryCol);
+
+    section.appendChild(layout);
   };
 
   render();
 };
 
-
 initCartPage();
-

@@ -1,20 +1,32 @@
+@use 'variables' as vars;
+
 #bannerText {
   text-align: center;
-  font-size: 1.5rem;
-  font-weight: 500;
-  line-height: 1.4;
-  margin: 20px 0;
+  font-size: vars.$font-size-large;
+  font-weight: vars.$font-weight-medium;
+  line-height: vars.$line-height-base;
+  margin: vars.$spacing-lg 0;
   letter-spacing: -0.01em;
-  color: #2c2825;
+  color: vars.$color-gray-dark;
 }
-
+#headerLogoText {
+  font-weight: vars.$font-weight-regular;
+  font-size: vars.$font-size-h1;
+}
+.headingLink {
+  color: vars.$color-black;
+  text-decoration: none;
+  :hover {
+    cursor: pointer;
+  }
+}
 
 .nav {
   text-decoration: none;
 }
 
 #logo {
-  font-weight: 700;
+  font-weight: vars.$font-weight-bold;
 }
 
 .ulNav {
@@ -29,10 +41,14 @@
 
 .ulNav a {
   text-decoration: none;
-  color: black;
-  font-size: 16px;
-  font-weight: 400;
+  color: vars.$color-black;
+  font-size: vars.$font-size-base;
+  font-weight: vars.$font-weight-regular;
   letter-spacing: 0;
+
+  &:hover{
+    font-weight: vars.$font-weight-bold;
+  }
 }
 
 .ulNav img {
@@ -45,14 +61,14 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  border: 3px solid black;
+  border: vars.$border-width-large solid vars.$color-black;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   align-items: stretch;
   position: relative;
+  box-sizing: border-box;
 }
-
 
 .divNav {
   display: flex;
@@ -65,18 +81,19 @@
 
 .divNav p {
   font-size: 48px;
-  font-weight: 400;
+  font-weight: vars.$font-weight-regular;
   margin: 0;
+
 }
 
 .container > .divNav:first-child {
-  border-right: 3px solid black;
+  border-right: vars.$border-width-large solid vars.$color-black;
 }
 
 #left-container {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: vars.$spacing-xl;
   padding: 0 2rem;
 }
 
@@ -93,18 +110,21 @@
 }
 
 .fa-solid {
-  font-size: 2rem;
+  font-size: vars.$font-size-large;
 }
 //TABLET
 @media screen and (max-width: 991px) {
   #bannerText {
-    font-size: 1rem;
+    font-size: vars.$font-size-base;
   }
 
-  
   .divNav {
-    h1 {
-      font-size: 1.5rem;
+    #headerLogoText {
+      font-size: vars.$font-size-base;
+      font-weight: vars.$font-weight-regular;
+    }
+    .logo {
+      font-weight: vars.$font-weight-bold;
     }
   }
   .ulNav {
@@ -120,70 +140,69 @@
     display: block;
   }
 
+  #hamburgerMenu {
+    position: absolute;
+    left: 0;
+    width: 50%;
+    margin-left: auto;
+    border: vars.$border-width-large solid vars.$color-black;
+    display: none;
+    z-index: 9999;
+    background: vars.$color-white;
+    top: calc(100% - 3px);
+    display: none;
 
+    ul {
+      list-style-type: none;
+      margin: none;
+      padding: 10px 20px;
+    }
+    a {
+      color: vars.$color-black;
+      text-decoration: none;
 
-#hamburgerMenu {
-  position: absolute;
-  left: 0;
-  width: 50%;
-  margin-left: auto;
-  border: 3px solid black;
-  display: none;
-  z-index: 9999;
-  background: white;
-  top: calc(100% - 3px);
-  display: none;
-
-  ul {
-    list-style-type: none;
-    margin: none;
-    padding: 10px 20px;
-   
-}
-a{
-  color: black;
-  text-decoration: none;
-  
-  &:hover {
-    font-weight: 700;
-    background: #f9f9f9
+      &:hover {
+        font-weight: vars.$font-weight-bold;
+      }
+    }
   }
-}
-}
 
   #hamburgerMenu:not(.headerHidden) {
     display: flex;
     justify-content: flex-start;
-
   }
-  
- #hamburgerMeny > 
 
-      #hamburgerMeny  a {
-        //this should be refactored since copied from above (mixin? extending?)
-        text-decoration: none;
-        color: #000;
-        font-size: 16px;
-        font-weight: 400;
-        letter-spacing: 0;
-      }
-    
-    }
-  
-
+  #hamburgerMeny > #hamburgerMeny a {
+    //this should be refactored since copied from above (mixin? extending?)
+    text-decoration: none;
+    color: #000;
+    font-size: vars.$font-size-base;
+    font-weight: vars.$font-weight-regular;
+    letter-spacing: 0;
+  }
+}
 
 //MOBILE
 @media screen and (max-width: 768px) {
   #bannerText {
-    font-size: 0.8rem;
+    font-size: vars.$font-size-base;
+  }
+
+
+
+  .container {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
   }
   .divNav {
     width: 46vw;
 
-    h1 {
-      font-size: 1.1rem;
+   #headerLogoText {
+      font-size: vars.$font-size-base;
     }
   }
+
 
   #left-container {
     padding: 0 0.4rem;

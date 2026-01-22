@@ -8,7 +8,7 @@
       src="https://kit.fontawesome.com/7dd7da429f.js"
       crossorigin="anonymous"
     ></script>
-    <title>the-webshop-template-pdp</title>
+    <title>The Iconic Series</title>
   </head>
   <body id="pdpBody">
     <header>
@@ -19,26 +19,47 @@
       </div>
       <div class="container">
         <div class="divNav" id="left-container">
-          <i class="fa-sharp fa-solid fa-bars" id="hamburgerButton"></i>
-          <h1>THE <span id="logo">ICONIC</span> SERIES</h1>
+          <i
+            class="fa-sharp fa-solid fa-bars"
+            id="hamburgerButton"
+            role="button"
+            aria-label="Open Menu"
+          ></i>
+          <a href="index.html" class="headingLink">
+            <h2 id="headerLogoText">
+              THE <span id="logo">ICONIC</span> SERIES
+            </h2>
+          </a>
         </div>
 
         <nav class="divNav">
           <ul class="nav ulNav">
-            <li><a href="">NEW DROPS</a></li>
-            <li><a href="#category-section">CATEGORIES</a></li>
-            <li><a href="">ABOUT</a></li>
+            <li><a href="newdrops.html">NEW DROPS</a></li>
+            <li><a href="index.html#category-section">CATEGORIES</a></li>
+            <li><a href="#footer">ABOUT</a></li>
             <li id="cartLink" class="cartHover">
-              <a href=""><i class="fa-sharp fa-solid fa-cart-shopping"></i></a>
+              <a href="">
+                <i
+                  class="fa-sharp fa-solid fa-cart-shopping"
+                  role="button"
+                  aria-label="Go to cart"
+                ></i>
+                <span
+                  id="cartAmount"
+                  class="headerHidden"
+                  aria-label="Amount of items in cart"
+                  >0</span
+                >
+              </a>
             </li>
           </ul>
         </nav>
 
         <nav class="headerHidden" id="hamburgerMenu">
           <ul>
-            <li><a href="">NEW DROPS</a></li>
-            <li><a href="#category-section">CATEGORIES</a></li>
-            <li><a href="">ABOUT</a></li>
+            <li><a href="newdrops.html">NEW DROPS</a></li>
+            <li><a href="index.html#category-section">CATEGORIES</a></li>
+            <li><a href="#footer">ABOUT</a></li>
           </ul>
         </nav>
 
@@ -48,6 +69,7 @@
 
     <!-- PDP MAIN-->
     <main id="pdpMain">
+      <button id="goBackBtn">GO BACK</button>
       <section class="pdp__section" id="pdpSection">
         <div id="pdpMedia" class="pdp__media">
           <!-- main image - change in TS -->
@@ -67,7 +89,10 @@
               <span id="qty-value">1</span>
               <button id="qty-plus" type="button">+</button>
             </div>
-            <button id="add-to-cart" type="button">ADD TO CART</button>
+            <div>
+              <button id="add-to-cart" type="button">ADD TO CART</button>
+              <button id="go-to-checkout" type="button">GO TO CHECKOUT</button>
+            </div>
           </div>
         </div>
       </section>
@@ -103,6 +128,98 @@
       <section id="pdpPanel" class="pdp__panel"></section>
       <!-- Create content with TS based on tab-->
     </main>
+    <!-- FOOTER -->
+    <footer class="footer" id="footer">
+      <!-- Newsletter -->
+      <section class="footer-newsletter">
+        <h3>JOIN THE RADICAL GROUP</h3>
+        <p>
+          Sign up to our newsletter to get exclusive drops, deals<br />
+          just for you and great stories about our icons!
+        </p>
+        <form action="" class="newsletter-form">
+          <input type="email" placeholder="Your email" />
+          <button type="submit">SIGN UP</button>
+        </form>
+      </section>
+
+      <!-- Links -->
+      <section class="footer-links">
+        <div class="footer-column">
+          <h4>ABOUT US</h4>
+          <ul class="footer-lists">
+            <li>
+              <a href="" class="footer-links__link">Our mission</a>
+            </li>
+            <li>
+              <a href="" class="footer-links__link">Careers</a>
+            </li>
+            <li>
+              <a href="" class="footer-links__link">Press</a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>SHOP</h4>
+          <ul class="footer-lists">
+            <li>
+              <a href="" class="footer-links__link">All</a>
+            </li>
+            <li>
+              <a href="" class="footer-links__link">Music</a>
+            </li>
+            <li>
+              <a href="" class="footer-links__link">Movie</a>
+            </li>
+            <li>
+              <a href="" class="footer-links__link">Fashion</a>
+            </li>
+            <li>
+              <a href="" class="footer-links__link">Activism</a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>HELP</h4>
+          <ul class="footer-lists">
+            <li>
+              <a href="" class="footer-links__link">FAQ</a>
+            </li>
+            <li>
+              <a href="" class="footer-links__link">Shipping info</a>
+            </li>
+            <li>
+              <a href="" class="footer-links__link">Returns</a>
+            </li>
+            <li>
+              <a href="" class="footer-links__link">Contact Us</a>
+            </li>
+            <li>
+              <a href="" class="footer-links__link">Track order</a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>CONNECT</h4>
+          <div class="social-icons">
+            <a href="" class="footer-links__link">
+              <i class="fa-brands fa-square-facebook"></i>
+            </a>
+            <a href="" class="footer-links__link">
+              <i class="fa-brands fa-square-instagram"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom -->
+      <div class="footer-bottom">
+        <p>
+          &copy; 2025 THE ICONIC SERIES.
+          <span>ACTION FIGURES THAT WERE NEVER APPROVED</span>
+        </p>
+      </div>
+    </footer>
 
     <script type="module" src="/src/pages/pdp/pdp.ts"></script>
   </body>

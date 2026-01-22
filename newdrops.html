@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,8 +9,8 @@
     ></script>
     <title>The Iconic Series</title>
   </head>
+
   <body>
-    <!-- HEADER -->
     <header>
       <div>
         <p id="bannerText">
@@ -36,7 +36,7 @@
           <ul class="nav ulNav">
             <li><a href="newdrops.html">NEW DROPS</a></li>
             <li><a href="index.html#category-section">CATEGORIES</a></li>
-            <li><a href="#footer">ABOUT</a></li>
+            <li><a href="">ABOUT</a></li>
             <li id="cartLink" class="cartHover">
               <a href="">
                 <i
@@ -57,9 +57,9 @@
 
         <nav class="headerHidden" id="hamburgerMenu">
           <ul>
-            <li><a href="newdrops.html">NEW DROPS</a></li>
-            <li><a href="index.html#category-section">CATEGORIES</a></li>
-            <li><a href="#footer">ABOUT</a></li>
+            <li><a href="">NEW DROPS</a></li>
+            <li><a href="#category-section">CATEGORIES</a></li>
+            <li><a href="">ABOUT</a></li>
           </ul>
         </nav>
 
@@ -67,11 +67,28 @@
       </div>
     </header>
 
-    <!-- MAIN -->
-    <main id="main"></main>
+    <!-- MAIN CONTENT -->
+    <main>
+      <!-- HERO SECTION -->
+
+      <!-- Product Cards Start-->
+      <section id="product-card-section">
+        <h2>NEW DROPS</h2>
+        <div id="product-card-container"></div>
+      </section>
+      <!-- Product Cards End-->
+
+      <!-- Category Section Start -->
+      <section id="category-section">
+        <h2>SHOP BY CATEGORY</h2>
+        <p>PICK YOUR FAVOURITE CATEGORY OF AWESOME!</p>
+        <div id="category-container"></div>
+      </section>
+      <!-- Category Section End -->
+    </main>
 
     <!-- FOOTER -->
-    <footer class="footer" id="footer">
+    <footer class="footer">
       <!-- Newsletter -->
       <section class="footer-newsletter">
         <h3>JOIN THE RADICAL GROUP</h3>
@@ -163,6 +180,6 @@
       </div>
     </footer>
 
-    <script type="module" src="src/pages/cart/cartPage.ts"></script>
+    <script type="module" src="/src/pages/newDrops/newDrops.ts"></script>
   </body>
 </html>

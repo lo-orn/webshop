@@ -3,9 +3,11 @@ import type { CartItem } from "../models/CartItem";
 import type { Product } from "../models/product";
 import { getProductCategories } from "../services/productService";
 import { getData } from "../services/serviceBase";
-import { addItemToCart, removeOneItemFromCart } from "./cartUtils";
+import { addItemToCart, removeOneItemFromCart, updateCart } from "./cartUtils";
 import { checkShipping } from "./checkoutUtils";
+import { updateHeaderCartAmount } from "./headerUtils";
 import { setLastClickedProduct } from "./pageUtils";
+import { createPromoErrorMsg } from "./promoUtils";
 
 /* ---LANDING PAGE---- */
 export const createAllProductCards = async (category: string = "all") => {
@@ -37,6 +39,11 @@ export const createAllProductCards = async (category: string = "all") => {
   });
 };
 
+const newDropsBtn = document.getElementById("newDropsBtn");
+newDropsBtn?.addEventListener("click", () => {
+  window.location.href = "newdrops.html";
+});
+
 /**
  *  this html needs more styling to match the design
  * @param product a single product object
@@ -56,7 +63,7 @@ export const createProductCard = (product: Product) => {
   category.innerHTML = product.category.toUpperCase();
   name.innerHTML = product.name.toUpperCase();
   description.innerHTML = product.description;
-  price.innerHTML = product.price.toString() + "SEK";
+  price.innerHTML = product.price.toString() + " SEK";
   addButton.innerHTML = "ADD TO CART";
 
   container.classList.add("productCard");
@@ -81,8 +88,10 @@ export const createProductCard = (product: Product) => {
   container.appendChild(description);
   container.appendChild(buyContainer);
 
-  addButton.addEventListener("click", () => {
-    addItemToCart(product.id.toString());
+  addButton.addEventListener("click", async (event: Event) => {
+    event?.stopPropagation();
+    await addItemToCart(product.id.toString());
+    updateHeaderCartAmount();
   });
 
   container.addEventListener("click", () => {
@@ -136,17 +145,83 @@ export const createCheckoutCart = () => {
 
   const subTotalEl = document.getElementById("subtotalPrice");
   if (subTotalEl) {
-    subTotalEl.innerText = "$" + subTotal.toString();
+    subTotalEl.innerText = subTotal.toString() + " SEK";
   }
 
   const shippingPriceEl = document.getElementById("shippingPrice");
   if (shippingPriceEl) {
-    shippingPriceEl.innerText = "$" + cart.shippingPrice?.toString();
+    shippingPriceEl.innerText = cart.shippingPrice?.toString() + " SEK";
+  }
+  /* ===== PROMO CODE UI (SEBASTIAN) ===== */
+  const priceMid = document.getElementById("priceMid");
+  if (priceMid) {
+    document.getElementById("promoWrapper")?.remove();
+    const promoWrapper = document.createElement("div");
+    promoWrapper.className = "row";
+    promoWrapper.id = "promoWrapper";
+
+    const label = document.createElement("p");
+    label.textContent = "PROMO CODE";
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "ENTER CODE";
+    input.className = "wrapperSummery__promoInput";
+    input.id = "promoInput";
+
+    const button = document.createElement("button");
+    button.textContent = "SUBMIT";
+    button.style.border = "1px solid black";
+    button.style.marginLeft = "6px";
+
+    button.addEventListener("click", () => {
+      const code = input.value.trim().toUpperCase();
+      if (code === "SEBASTIAN") {
+        if (document.getElementById("discountRow")) {
+          const errorMsg = createPromoErrorMsg("other");
+          promoWrapper.appendChild(errorMsg);
+          setTimeout(() => {
+            errorMsg.remove();
+          }, 3000);
+        } else {
+          cart.cartDiscount = 20;
+          updateCart(cart);
+          createCheckoutCart();
+        }
+      } else {
+        const errorMsg = createPromoErrorMsg("invalid");
+        promoWrapper.append(errorMsg);
+        setTimeout(() => {
+          errorMsg.remove();
+        }, 3000);
+      }
+    });
+
+    if (cart.cartDiscount) {
+      const discountRow = document.createElement("div");
+      discountRow.id = "discountRow";
+      const discountSEK = Math.round(
+        (subTotal + cart.shippingPrice) * (cart.cartDiscount / 100),
+      );
+      discountRow.innerText = `DISCOUNT (SEBASTIAN) -${discountSEK} SEK`;
+      promoWrapper.append(discountRow);
+    }
+
+    const right = document.createElement("span");
+    right.append(input, button);
+
+    promoWrapper.prepend(label, right);
+    priceMid.prepend(promoWrapper);
   }
 
   const totalPriceEl = document.getElementById("totalPrice");
   if (totalPriceEl) {
-    totalPriceEl.innerText = (subTotal + cart.shippingPrice).toString();
+    let cartDiscountSEK = cart.cartDiscount
+      ? (subTotal + cart.shippingPrice) * (cart.cartDiscount / 100)
+      : 0;
+    totalPriceEl.innerText = Math.round(
+      subTotal + cart.shippingPrice - cartDiscountSEK,
+    ).toString();
   }
 };
 
@@ -181,16 +256,18 @@ export const createCheckoutCartItem = (item: CartItem) => {
   minusBtn.innerText = "-";
   plusBtn.innerText = "+";
   qty.innerText = item.amount.toString();
-  price.innerHTML = "$" + (product.price * item.amount).toString();
+  price.innerHTML = (product.price * item.amount).toString() + " SEK";
 
   minusBtn.addEventListener("click", () => {
     removeOneItemFromCart(item.product.id.toString());
     createCheckoutCart();
+    updateHeaderCartAmount();
   });
 
   plusBtn.addEventListener("click", async () => {
     await addItemToCart(item.product.id.toString());
     createCheckoutCart();
+    updateHeaderCartAmount();
   });
 
   qtyContainer?.appendChild(minusBtn);
@@ -237,8 +314,6 @@ export const createCheckoutConfirmation = (cart: Cart) => {
     productContainer.appendChild(container);
   });
 
-    
-
   const message = document.createElement("p");
   message.className = "confirmationMessage";
   message.innerText =
@@ -251,22 +326,21 @@ export const createCheckoutConfirmation = (cart: Cart) => {
   containerSection?.appendChild(confirmationSection);
 
   const stamp = document.createElement("div");
-    stamp.className = "approvedStamp";
-    stamp.setAttribute("aria-hidden", "true");
+  stamp.className = "approvedStamp";
+  stamp.setAttribute("aria-hidden", "true");
 
-    stamp.innerHTML = `<div class ="approvedStamp__inner">
+  stamp.innerHTML = `<div class ="approvedStamp__inner">
     <div class ="approvedStamp__top"> APPROVED</div>
     <div class ="approvedStamp__bottom"> CHECKOUT COMPLETE
-    </div>`
+    </div>`;
 
-   containerSection?.appendChild(stamp)
+  containerSection?.appendChild(stamp);
 
-    requestAnimationFrame(() => stamp.classList.add("is-in"))
-    setTimeout(() => {
-      stamp.classList.add("is-out");
-      setTimeout(() => stamp.remove(), 200);
-    }, 2500)
- 
+  requestAnimationFrame(() => stamp.classList.add("is-in"));
+  setTimeout(() => {
+    stamp.classList.add("is-out");
+    setTimeout(() => stamp.remove(), 200);
+  }, 2500);
 };
 
 const createEmptyCartMessage = () => {
@@ -276,10 +350,19 @@ const createEmptyCartMessage = () => {
   section.innerHTML = "";
   section.classList.add("emptyCartMessage");
   const message = document.createElement("p");
+  message.className = "priceCountMessage";
   message.innerHTML =
     "Your cart seems to be empty. Go back and add some of your favourites!";
 
+  const button = document.createElement("button");
+  button.className = "priceCountBtn";
+  button.innerHTML = "GO BACK";
+  button.addEventListener("click", () => {
+    window.location.href = "index.html";
+  });
+
   section?.appendChild(message);
+  section.append(button);
 };
 
 export const createAllCategories = async () => {
@@ -289,6 +372,8 @@ export const createAllCategories = async () => {
   const box = document.createElement("div");
   const heading = document.createElement("h4");
 
+  box.setAttribute("role", "button");
+  box.setAttribute("aria-label", "Sort by all categories");
   box.classList.add("categoryBox");
   heading.innerHTML = "ALL";
   heading.classList.add("categoryHeading");
@@ -310,6 +395,8 @@ const createCategory = (category: string) => {
   const box = document.createElement("div");
   const heading = document.createElement("h4");
 
+  box.setAttribute("aria-label", `Sort by category: ${category}`);
+  box.setAttribute("role", "button");
   box.classList.add("categoryBox");
   box.classList.add(category);
   heading.innerHTML = category.toUpperCase();

@@ -5,14 +5,14 @@ import {
   removeOneItemFromCart,
 } from "../../utils/cartUtils";
 import { getLastClickedProduct } from "../../utils/pageUtils";
-import "../../scss/pdp.scss";
+import "../../scss/pdp/pdp.scss";
 import "../../utils/headerUtils";
-import { createThumbnails } from "./pdp_carousel";
-import { getQtyInCart } from "../../utils/pdpUtils";
-import { initCartPop } from "../../utils/cartModalUtils";
-
-console.log("PDP FILE LOADED");
-// Kör PDP-kod bara på pdp-sidan
+import { initCartPop, updateHeaderCartAmount } from "../../utils/headerUtils";
+import {
+  changeCarouselImageBtnFunction,
+  getQtyInCart,
+} from "../../utils/pdpUtils";
+import { createEmptyCartView } from "../cart/cartPage";
 
 //render product function with html *done*
 
@@ -43,28 +43,27 @@ export const renderProduct = (product: Product) => {
 // initPdp funktion (const product - getLastCllicked, !product(redirect?), renderProduct  ) - *done*
 
 export const initPdp = () => {
-  console.log("PDP TS LOADING");
-
   // hämta produkt från localStorage
   const product = getLastClickedProduct();
-  console.log("product from LS:", product);
   if (!product) {
-    console.log("STOP: no product in localStorage");
+    // visa felmeddelande
+    const main = document.getElementById("pdpMain");
+    if (main) {
+      main.innerHTML = "";
+      const errorMessage: HTMLElement = createEmptyCartView("NO PRODUCT FOUND");
+      main.appendChild(errorMessage);
+    }
     return;
   }
 
   renderProduct(product);
   initTabs(product);
-  console.log("calling initQty");
   initQty(product);
 };
-
-//initThumbs
 
 //tabsInit(details, story, shipping) *done*
 
 export const initTabs = (product: Product) => {
-  console.log("initTabs körs");
   const tabs = document.querySelectorAll<HTMLButtonElement>(".tab");
   const panel = document.getElementById("pdpPanel");
   if (!panel) return;
@@ -94,9 +93,15 @@ export const initTabs = (product: Product) => {
   });
 };
 
+export const updateQty = (product: Product) => {
+  const qtyEl = document.getElementById("qty-value") as HTMLSpanElement | null;
+  if (!qtyEl) return;
+  qtyEl.textContent = String(getQtyInCart(product.id));
+};
+
 //initQty
 
-const initQty = (product: Product) => {
+export const initQty = (product: Product) => {
   findCart();
 
   const qtyEl = document.getElementById("qty-value") as HTMLSpanElement | null;
@@ -109,48 +114,37 @@ const initQty = (product: Product) => {
   const addBtn = document.getElementById(
     "add-to-cart",
   ) as HTMLButtonElement | null;
+  const checkoutButton = document.getElementById(
+    "go-to-checkout",
+  ) as HTMLButtonElement | null;
 
-  if (!qtyEl || !minusBtn || !plusBtn || !addBtn) {
+  if (!qtyEl || !minusBtn || !plusBtn || !addBtn || !checkoutButton) {
     console.warn("Qty-elements missing on site");
     return;
   }
 
-  const updateQty = () => {
-    if (!qtyEl) return;
-    qtyEl.textContent = String(getQtyInCart(product.id));
-  };
-
-  updateQty();
-  console.log("Initial qty:", getQtyInCart(product.id));
+  updateQty(product);
 
   plusBtn.addEventListener("click", async () => {
     await addItemToCart(String(product.id));
-    updateQty();
-    console.log("Product added");
-    console.log(
-      "CART AFTER UPDATE:",
-      JSON.parse(localStorage.getItem("cart") || "{}"),
-    );
+    updateQty(product);
+    updateHeaderCartAmount();
   });
 
   minusBtn.addEventListener("click", () => {
     removeOneItemFromCart(String(product.id));
-    updateQty();
-    console.log("Product removed");
-    console.log(
-      "CART AFTER UPDATE:",
-      JSON.parse(localStorage.getItem("cart") || "{}"),
-    );
+    updateQty(product);
+    updateHeaderCartAmount();
   });
 
   addBtn.addEventListener("click", async () => {
     await addItemToCart(String(product.id));
-    updateQty();
-    console.log("Product added");
-    console.log(
-      "CART AFTER UPDATE:",
-      JSON.parse(localStorage.getItem("cart") || "{}"),
-    );
+    updateQty(product);
+    updateHeaderCartAmount();
+  });
+
+  checkoutButton.addEventListener("click", () => {
+    window.location.href = "checkout.html";
   });
 };
 
@@ -158,3 +152,53 @@ document.addEventListener("DOMContentLoaded", () => {
   initCartPop();
   initPdp();
 });
+
+// Carousel
+export const createThumbnails = (product: Product) => {
+  const container = document.getElementById("pdp__thumbs__container");
+  const mainImg = document.getElementById(
+    "pdp-main-img",
+  ) as HTMLImageElement | null;
+
+  if (!container || !mainImg) return;
+
+  // main image ska vara product.image
+  mainImg.src = product.image;
+  mainImg.alt = product.name;
+
+  // product.image först -> sen karusell
+  const images = [product.image, ...(product.carouselImages ?? [])];
+  const TOTAL_SLOTS = 6;
+
+  container.innerHTML = "";
+
+  for (let i = 0; i < TOTAL_SLOTS; i++) {
+    const imgContainer = document.createElement("div");
+    imgContainer.classList.add("thumbnailContainer");
+
+    if (images[i]) {
+      const img = document.createElement("img");
+      img.classList.add("thumbnail");
+      img.src = images[i];
+      img.alt = `Thumbnail ${i + 1}`;
+
+      img.addEventListener("click", () => {
+        mainImg.src = images[i];
+        mainImg.alt = `This is image: ${i}`;
+      });
+
+      imgContainer.appendChild(img);
+    } else {
+      imgContainer.classList.add("placeholder");
+
+      if (i === 0) imgContainer.classList.add("ph-blue");
+      if (i === 1) imgContainer.classList.add("ph-black");
+      if (i === 2) imgContainer.classList.add("ph-white");
+      if (i === 3) imgContainer.classList.add("ph-yellow");
+      if (i === 4) imgContainer.classList.add("ph-gray");
+    }
+
+    container.appendChild(imgContainer);
+  }
+  changeCarouselImageBtnFunction(mainImg, images);
+};

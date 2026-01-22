@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,7 +7,7 @@
       src="https://kit.fontawesome.com/7dd7da429f.js"
       crossorigin="anonymous"
     ></script>
-    <title>the-webshop-template-checkout</title>
+    <title>The Iconic Series</title>
   </head>
   <body>
     <!-- HEADER START -->
@@ -19,26 +19,47 @@
       </div>
       <div class="container">
         <div class="divNav" id="left-container">
-          <i class="fa-sharp fa-solid fa-bars" id="hamburgerButton"></i>
-          <h1>THE <span id="logo">ICONIC</span> SERIES</h1>
+          <i
+            class="fa-sharp fa-solid fa-bars"
+            id="hamburgerButton"
+            role="button"
+            aria-label="Open Menu"
+          ></i>
+          <a href="index.html" class="headingLink">
+            <h2 id="headerLogoText">
+              THE <span id="logo">ICONIC</span> SERIES
+            </h2>
+          </a>
         </div>
 
         <nav class="divNav">
           <ul class="nav ulNav">
-            <li><a href="">NEW DROPS</a></li>
-            <li><a href="#category-section">CATEGORIES</a></li>
-            <li><a href="">ABOUT</a></li>
+            <li><a href="newdrops.html">NEW DROPS</a></li>
+            <li><a href="index.html#category-section">CATEGORIES</a></li>
+            <li><a href="checkout.html#footer">ABOUT</a></li>
             <li id="cartLink" class="cartHover">
-              <a href=""><i class="fa-sharp fa-solid fa-cart-shopping"></i></a>
+              <a href="">
+                <i
+                  class="fa-sharp fa-solid fa-cart-shopping"
+                  aria-label="Go to cart"
+                ></i>
+                <span
+                  id="cartAmount"
+                  class="headerHidden"
+                  role="button"
+                  aria-label="Amount of items in cart"
+                  >0</span
+                >
+              </a>
             </li>
           </ul>
         </nav>
 
         <nav class="headerHidden" id="hamburgerMenu">
           <ul>
-            <li><a href="">NEW DROPS</a></li>
-            <li><a href="#category-section">CATEGORIES</a></li>
-            <li><a href="">ABOUT</a></li>
+            <li><a href="newdrops.html">NEW DROPS</a></li>
+            <li><a href="index.html#category-section">CATEGORIES</a></li>
+            <li><a href="#footer">ABOUT</a></li>
           </ul>
         </nav>
 
@@ -57,12 +78,24 @@
               <div class="inlineContainer">
                 <div class="formColumn">
                   <label for="firstName">FIRST NAME*</label>
-                  <input type="text" id="firstName" placeholder="John" />
+                  <input
+                    type="text"
+                    id="firstName"
+                    placeholder="John"
+                    aria-required="true"
+                    aria-errorId="inputFirstName"
+                  />
                 </div>
 
                 <div class="formColumn">
                   <label for="lastName">LAST NAME*</label>
-                  <input type="text" id="lastName" placeholder="Doe" />
+                  <input
+                    type="text"
+                    id="lastName"
+                    placeholder="Doe"
+                    aria-required="true"
+                    aria-errorId="inputLastName"
+                  />
                 </div>
               </div>
 
@@ -72,17 +105,31 @@
                   type="email"
                   id="email"
                   placeholder="john.doe@email.com"
+                  aria-required="true"
+                  aria-errorId="inputEmail"
                 />
               </div>
 
               <div class="formColumn">
                 <label for="phone">PHONE NUMBER*</label>
-                <input type="text" id="phone" placeholder="+46 000 000 000" />
+                <input
+                  type="text"
+                  id="phone"
+                  placeholder="+46 000 000 000"
+                  aria-required="true"
+                  aria-errorId="inputPhone"
+                />
               </div>
 
               <div class="formColumn">
                 <label for="street">STREET ADDRESS*</label>
-                <input type="text" id="street" placeholder="123 Main Street" />
+                <input
+                  type="text"
+                  id="street"
+                  placeholder="123 Main Street"
+                  aria-required="true"
+                  aria-errorId="inputStreet"
+                />
               </div>
 
               <div class="formColumn">
@@ -93,22 +140,46 @@
               <div class="inlineContainer">
                 <div class="formColumn">
                   <label for="city">CITY*</label>
-                  <input type="text" id="city" placeholder="New York" />
+                  <input
+                    type="text"
+                    id="city"
+                    placeholder="New York"
+                    aria-required="true"
+                    aria-errorId="inputCity"
+                  />
                 </div>
 
                 <div class="formColumn">
                   <label for="state">STATE*</label>
-                  <input type="text" id="state" placeholder="NY" />
+                  <input
+                    type="text"
+                    id="state"
+                    placeholder="NY"
+                    aria-required="true"
+                    aria-errorId="inputState"
+                  />
                 </div>
 
                 <div class="formColumn">
                   <label for="zipCode">ZIP CODE*</label>
-                  <input type="text" id="zipCode" placeholder="10001" />
+                  <input
+                    type="text"
+                    id="zipCode"
+                    placeholder="10001"
+                    aria-required="true"
+                    aria-errorId="inputZipCode"
+                  />
                 </div>
               </div>
               <div class="formColumn">
-                <label for="country">COUNTRY</label>
-                <input type="text" id="country" placeholder="United States" />
+                <label for="country">COUNTRY*</label>
+                <input
+                  type="text"
+                  id="country"
+                  placeholder="United States"
+                  aria-required="true"
+                  aria-errorId="inputCountry"
+                />
               </div>
             </div>
           </section>
@@ -116,20 +187,20 @@
           <section id="shippingMethodSection">
             <h3>SHIPPING METHOD</h3>
             <div id="shippingMethodForm">
-              <div class="btn" id="standardShpBtn">
-                <input type="radio" name="shippingMethod" value="standard" />
+              <div class="btn-shipping chosen" id="standardShpBtn">
+                <input
+                  type="radio"
+                  name="shippingMethod"
+                  value="standard"
+                  checked
+                />
                 <div class="btnText">
                   <p class="btnHeading">STANDARD SHIPPING</p>
                   <p class="btnInfo">5-7 BUSINESS DAYS</p>
                 </div>
               </div>
-              <div class="btn chosen" id="expressShpBtn">
-                <input
-                  type="radio"
-                  name="shippingMethod"
-                  checked
-                  value="express"
-                />
+              <div class="btn-shipping" id="expressShpBtn">
+                <input type="radio" name="shippingMethod" value="express" />
                 <div class="btnText">
                   <p class="btnHeading">EXPRESS SHIPPING</p>
                   <p class="btnInfo">2-3 BUSINESS DAYS</p>
@@ -141,7 +212,7 @@
           <section class="checkout-card" id="paymentInfoSection">
             <h3>PAYMENT INFORMATION</h3>
             <div id="paymentInfoForm">
-              <div class="btn" id="btnCreditCard">
+              <div class="btn-payment" id="btnCreditCard">
                 <p class="btnHeading">CREDIT CARD</p>
               </div>
 
@@ -151,27 +222,47 @@
                   type="number"
                   id="cardNumber"
                   placeholder="1234 5678 9012 3456"
+                  aria-required="true"
+                  aria-errorId="inputCardNumber"
                 />
               </div>
 
               <div class="formColumn">
                 <label for="cardHolder">CARD HOLDER*</label>
-                <input type="text" id="cardHolder" placeholder="John Doe" />
+                <input
+                  type="text"
+                  id="cardHolder"
+                  placeholder="John Doe"
+                  aria-required="true"
+                  aria-errorId="inputCardHolder"
+                />
               </div>
 
               <div class="inlineContainer">
                 <div class="formColumn">
                   <label for="expiryDate">EXPIRY DATE*</label>
-                  <input type="text" id="expiryDate" placeholder="MM/YY" />
+                  <input
+                    type="text"
+                    id="expiryDate"
+                    placeholder="MM/YY"
+                    aria-required="true"
+                    aria-errorId="inputExpiryDate"
+                  />
                 </div>
 
                 <div class="formColumn">
                   <label for="cvvCode">CVV*</label>
-                  <input type="number" id="cvvCode" placeholder="123" />
+                  <input
+                    type="number"
+                    id="cvvCode"
+                    placeholder="123"
+                    aria-required="true"
+                    aria-errorId="inputcvvCode"
+                  />
                 </div>
               </div>
 
-              <div class="formColumn">
+              <div class="formColumn billingColumn">
                 <label for="billingAddress"
                   >BILLING ADDRESS SAME AS SHIPPING</label
                 >
@@ -195,9 +286,10 @@
               <span id="shippingPrice"></span>
             </div>
           </div>
+
           <div class="pricePart" id="priceBottom">
             <span>TOTAL</span>
-            <span>$<span id="totalPrice"></span></span>
+            <span><span id="totalPrice"></span> SEK</span>
           </div>
           <button type="submit" form="checkoutForm" id="orderBtn">
             COMPLETE ORDER
@@ -208,7 +300,7 @@
     <!-- MAIN END -->
 
     <!-- FOOTER START -->
-    <footer class="footer">
+    <footer class="footer" id="footer">
       <!-- Newsletter -->
       <section class="footer-newsletter">
         <h3>JOIN THE RADICAL GROUP</h3>
@@ -281,8 +373,12 @@
         <div class="footer-column">
           <h4>CONNECT</h4>
           <div class="social-icons">
-            <a href="" class="footer-links__link">FB</a>
-            <a href="" class="footer-links__link">IG</a>
+            <a href="" class="footer-links__link">
+              <i class="fa-brands fa-square-facebook"></i>
+            </a>
+            <a href="" class="footer-links__link">
+              <i class="fa-brands fa-square-instagram"></i>
+            </a>
           </div>
         </div>
       </section>
