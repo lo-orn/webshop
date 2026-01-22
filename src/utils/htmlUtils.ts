@@ -6,6 +6,7 @@ import { getData } from "../services/serviceBase";
 import { addItemToCart, removeOneItemFromCart, updateCart } from "./cartUtils";
 import { checkShipping } from "./checkoutUtils";
 import { updateHeaderCartAmount } from "./headerUtils";
+import { createNewDropsCards } from "./newdropUtils/newDropUtils";
 import { setLastClickedProduct } from "./pageUtils";
 import { createPromoErrorMsg } from "./promoUtils";
 
@@ -365,10 +366,13 @@ const createEmptyCartMessage = () => {
   section.append(button);
 };
 
-export const createAllCategories = async () => {
+export const createAllCategories = async (isNewDropsPage: boolean = false ) => {
   const categories = await getProductCategories();
 
   const container = document.getElementById("category-container");
+  if(container) {
+    container.innerHTML ="";
+  }
   const box = document.createElement("div");
   const heading = document.createElement("h4");
 
@@ -379,18 +383,22 @@ export const createAllCategories = async () => {
   heading.classList.add("categoryHeading");
 
   box.addEventListener("click", () => {
-    createAllProductCards();
+    if(isNewDropsPage) {
+      createNewDropsCards("all", true)
+    } else {
+      createAllCategories();
+    }
   });
 
   box.appendChild(heading);
   container?.appendChild(box);
 
   categories.forEach((category) => {
-    createCategory(category);
+    createCategory(category, isNewDropsPage);
   });
 };
 
-const createCategory = (category: string) => {
+const createCategory = (category: string, isNewDropsPage: boolean = false) => {
   const container = document.getElementById("category-container");
   const box = document.createElement("div");
   const heading = document.createElement("h4");
@@ -403,7 +411,12 @@ const createCategory = (category: string) => {
   heading.classList.add("categoryHeading");
 
   box.addEventListener("click", () => {
-    createAllProductCards(category);
+    if(isNewDropsPage) {
+      createNewDropsCards(category, true); 
+    } else {
+      createAllProductCards(category)
+    }
+    
     const productCardSection = document.getElementById("product-card-section");
     productCardSection?.scrollIntoView({
       behavior: "smooth",
