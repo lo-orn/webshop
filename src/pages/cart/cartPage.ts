@@ -7,7 +7,7 @@ import {
   removeOneItemFromCart,
 } from "../../utils/cartUtils";
 import { initCartPop, updateHeaderCartAmount } from "../../utils/headerUtils";
-import "..//../scss/cart.scss";
+import "../../scss/cart/cart.scss";
 
 // export const getCartFromLS = (): Cart | null => {
 //   const cartString = localStorage.getItem("cart");

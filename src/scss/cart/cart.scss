@@ -1,6 +1,6 @@
-@use "./style.scss";
-@use 'components/button' as btn;
-@use 'variables' as vars;
+@use "../style.scss";
+@use '../components/button' as btn;
+@use '../variables' as vars;
 
 // Empty cart view
 .cart-empty {

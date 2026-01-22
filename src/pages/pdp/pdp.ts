@@ -5,7 +5,7 @@ import {
   removeOneItemFromCart,
 } from "../../utils/cartUtils";
 import { getLastClickedProduct } from "../../utils/pageUtils";
-import "../../scss/pdp.scss";
+import "../../scss/pdp/pdp.scss";
 import "../../utils/headerUtils";
 import { initCartPop, updateHeaderCartAmount } from "../../utils/headerUtils";
 import {
