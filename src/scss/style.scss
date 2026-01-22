@@ -1,7 +1,7 @@
 @use "./base";
 @use "./header";
-@use "./landingPage";
+@use "./landingpage/landingPage";
 @use "./footer";
-@use "./cartModal";
-@use 'components/button' as btn;
+@use "./cartModal/cartModal";
+@use './components/button' as btn;
 

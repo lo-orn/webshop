@@ -1,5 +1,5 @@
 import "./scss/style.scss";
-import "./scss/pdp.scss";
+import "./scss/pdp/pdp.scss";
 import "./services/productService";
 import "./utils/cartUtils";
 import "./utils/htmlUtils";
