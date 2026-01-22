@@ -6,7 +6,7 @@ import { createNewDropsCards } from "../../utils/newdropUtils/newDropUtils";
 createNewDropsCards("all", true);
 
 findCart();
-createAllCategories();
+createAllCategories(true);
 
 window.addEventListener("DOMContentLoaded", () => {
  initCartPop();
