@@ -12,7 +12,5 @@ import { initCartPop } from "./utils/headerUtils";
 createAllProductCards();
 findCart();
 createAllCategories();
+initCartPop();
 
-window.addEventListener("DOMContentLoaded", () => {
-  initCartPop();
-});
