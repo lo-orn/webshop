@@ -123,7 +123,7 @@ export const renderCartPop = (cartPop: HTMLElement) => {
   cartButton.className = "go-to-cart";
 
   cartButton.addEventListener("click", () => {
-    window.location.href = "cartpage.html";
+    window.location.href = "cart.html";
   });
 
   checkoutButton.addEventListener("click", () => {
@@ -209,7 +209,7 @@ const updateMainAfterCartPopChange = () => {
   } else if (path === "/checkout.html") {
     createCheckoutCart();
     updateHeaderCartAmount();
-  } else if (path === "/cartpage.html") {
+  } else if (path === "/cart.html") {
     initCartPage();
     updateHeaderCartAmount();
   } else if (path === "/") {
