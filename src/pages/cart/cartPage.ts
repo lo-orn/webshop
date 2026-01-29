@@ -312,6 +312,4 @@ export const initCartPage = async () => {
   render();
 };
 
-console.log("About to call initCartPage");
-initCartPage();
-console.log("initCartPage has been called");
+window.addEventListener("load", initCartPage)
