@@ -312,4 +312,3 @@ export const initCartPage = async () => {
   render();
 };
 
-window.addEventListener("load", initCartPage)
