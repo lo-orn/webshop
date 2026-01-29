@@ -366,12 +366,12 @@ const createEmptyCartMessage = () => {
   section.append(button);
 };
 
-export const createAllCategories = async (isNewDropsPage: boolean = false ) => {
+export const createAllCategories = async (isNewDropsPage: boolean = false) => {
   const categories = await getProductCategories();
 
   const container = document.getElementById("category-container");
-  if(container) {
-    container.innerHTML ="";
+  if (container) {
+    container.innerHTML = "";
   }
   const box = document.createElement("div");
   const heading = document.createElement("h4");
@@ -383,10 +383,11 @@ export const createAllCategories = async (isNewDropsPage: boolean = false ) => {
   heading.classList.add("categoryHeading");
 
   box.addEventListener("click", () => {
-    if(isNewDropsPage) {
-      createNewDropsCards("all", true)
+    if (isNewDropsPage) {
+      createNewDropsCards("all", true);
     } else {
-      createAllCategories();
+      console.log("in else span");
+      createAllProductCards();
     }
   });
 
@@ -411,12 +412,12 @@ const createCategory = (category: string, isNewDropsPage: boolean = false) => {
   heading.classList.add("categoryHeading");
 
   box.addEventListener("click", () => {
-    if(isNewDropsPage) {
-      createNewDropsCards(category, true); 
+    if (isNewDropsPage) {
+      createNewDropsCards(category, true);
     } else {
-      createAllProductCards(category)
+      createAllProductCards(category);
     }
-    
+
     const productCardSection = document.getElementById("product-card-section");
     productCardSection?.scrollIntoView({
       behavior: "smooth",
