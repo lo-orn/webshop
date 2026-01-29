@@ -238,7 +238,10 @@ function createOrderSummery(cart: Cart): HTMLElement {
 export const initCartPage = async () => {
   console.log("initCartPage called!");
   if (typeof updateHeaderCartAmount === "function") {
+    console.log("updateHeaderCartAmount exists");
     updateHeaderCartAmount();
+  } else {
+    console.log("updateHeaderCartAmount is NOT a function!");
   }
 
   initCartPop();
@@ -246,12 +249,14 @@ export const initCartPage = async () => {
   findCart();
 
   const main = document.getElementById("main");
+  console.log("main element:", main);
   if (!main) {
     console.error('Hittar inte elementet med id="main" i HTML.');
     return;
   }
 
   const render = () => {
+    console.log("render called!");
     const cart = getCart();
 
     main.innerHTML = "";
@@ -286,4 +291,6 @@ export const initCartPage = async () => {
   render();
 };
 
+console.log("About to call initCartPage");
 initCartPage();
+console.log("initCartPage has been called");
