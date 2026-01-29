@@ -237,12 +237,12 @@ function createOrderSummery(cart: Cart): HTMLElement {
 // Init
 export const initCartPage = async () => {
   console.log("initCartPage called!");
-  if (typeof updateHeaderCartAmount === "function") {
-    console.log("updateHeaderCartAmount exists");
-    updateHeaderCartAmount();
-  } else {
-    console.log("updateHeaderCartAmount is NOT a function!");
-  }
+  // if (typeof updateHeaderCartAmount === "function") {
+  //   console.log("updateHeaderCartAmount exists");
+  //   updateHeaderCartAmount();
+  // } else {
+  //   console.log("updateHeaderCartAmount is NOT a function!");
+  // }
 
   initCartPop();
 
