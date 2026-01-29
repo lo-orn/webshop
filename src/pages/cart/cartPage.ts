@@ -95,13 +95,18 @@ function createCartItem(item: CartItem, onChange: () => void): HTMLElement {
   buttonPlus.addEventListener("click", async () => {
     await addItemToCart(String(item.product.id));
     onChange();
-    updateHeaderCartAmount();
+    if (typeof updateHeaderCartAmount === "function") {
+      updateHeaderCartAmount();
+    }
+   
   });
 
   buttonMinus.addEventListener("click", () => {
     removeOneItemFromCart(String(item.product.id));
     onChange();
-    updateHeaderCartAmount();
+    if (typeof updateHeaderCartAmount === "function") {
+      updateHeaderCartAmount();
+    }
   });
 
   imgWrapper.appendChild(img);
