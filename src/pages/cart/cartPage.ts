@@ -236,6 +236,7 @@ function createOrderSummery(cart: Cart): HTMLElement {
 
 // Init
 export const initCartPage = async () => {
+  console.log("initCartPage called!");
   if (typeof updateHeaderCartAmount === "function") {
     updateHeaderCartAmount();
   }
