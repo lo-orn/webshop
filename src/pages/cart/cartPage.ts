@@ -244,9 +244,30 @@ export const initCartPage = async () => {
   //   console.log("updateHeaderCartAmount is NOT a function!");
   // }
 
-  initCartPop();
+  try {
+    if (typeof updateHeaderCartAmount === "function") {
+      console.log("updateHeaderCartAmount exists");
+      updateHeaderCartAmount();
+    } else {
+      console.log("updateHeaderCartAmount is NOT a function!");
+    }
+  } catch (error) {
+    console.error("Error in updateHeaderCartAmount:", error);
+  }
 
-  findCart();
+  try {
+    initCartPop();
+    console.log("initCartPop done");
+  } catch (error) {
+    console.error("Error in initCartPop:", error);
+  }
+
+  try {
+    findCart();
+    console.log("findCart done");
+  } catch (error) {
+    console.error("Error in findCart:", error);
+  }
 
   const main = document.getElementById("main");
   console.log("main element:", main);
