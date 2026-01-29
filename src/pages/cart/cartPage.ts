@@ -244,9 +244,9 @@ export const initCartPage = async () => {
   //   console.log("updateHeaderCartAmount is NOT a function!");
   // }
 
-  initCartPop();
+  // initCartPop();
 
-  findCart();
+  // findCart();
 
   const main = document.getElementById("main");
   console.log("main element:", main);
