@@ -15,6 +15,7 @@ import { createPromoErrorMsg } from "../../utils/promoUtils";
 //   if (!cartString) return null;
 //   return JSON.parse(cartString);
 // };
+console.log("cartPage.ts loaded!");
 
 function createCartSection(): HTMLElement {
   const section = document.createElement("section");
